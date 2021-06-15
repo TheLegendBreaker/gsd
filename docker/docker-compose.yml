@@ -1,0 +1,64 @@
+version: "3.9"
+networks:
+  db-tier:
+    driver: bridge
+
+services:
+  db_server:
+    image: 'bitnami/nginx:latest'
+    restart: always
+    depends_on:
+      - db_app
+    networks:
+      - db-tier
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - /var/www/docker/nginx/snippets:/opt/bitnami/nginx/conf/snippets
+      - /var/www/docker/nginx:/opt/bitnami/nginx/conf/server_blocks/
+      - /var/www/:/var/www/
+    environment:
+      MYSQL_HOST: db:3306
+      MYSQL_DB: gsd
+      MYSQL_USER: gsd_php
+      MYSQL_PASSWORD: pUcn1,d6beezubxQx
+
+  db_app:
+    image: "bitnami/php-fpm"
+    restart: always
+    depends_on:
+      - db
+    volumes:
+      - /var/www/php:/app
+    environment:
+      MYSQL_HOST: db:3306
+      MYSQL_DB: gsd
+      MYSQL_USER: gsd_php
+      MYSQL_PASSWORD: pUcn1,d6beezubxQx
+    networks:
+      - db-tier
+    links:
+      - db
+
+  db:
+    image: mysql:latest
+    restart: always
+    command: 
+      --init-file /data/application/init.sql
+    volumes:
+      #- /var/www/docker/mysql/data:/var/lib/mysql
+      - /var/www/docker/mysql/init.sql:/data/application/init.sql
+      - type: bind
+        source: /var/www/docker/mysql/docker.cnf
+        target: /etc/mysql/conf.d/docker.cnf
+        consistency: cached
+    environment:
+      MYSQL_ROOT_PASSWORD: Root!1234
+      MYSQL_DATABASE: gsd
+      MYSQL_USER: gsd_php
+      MYSQL_PASSWORD: pUcn1,d6beezubxQx
+    ports:
+      - '3306:3306'
+    networks:
+      - db-tier

@@ -1,0 +1,66 @@
+<!-- variables--><!-- end variables--><!-- util--><!-- end util--><!-- components--><!-- cards--><!-- end cards--><!-- buttons--><!-- end buttons--><!-- end components--><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="../gsd_style.css"><style>#main-nav .container label > span {
+	font-size: 12px;
+	padding-left: 5px;
+}
+#main-nav .tl-options {
+	min-height: 33px;
+} 
+#main-nav .tl-options > * {
+	left: 0;
+}
+#main-nav .tl-options button{
+	z-index: 50;
+	width: calc(100% - 11px);
+	bottom: 0;
+}
+#main-nav .tl-options select:hover {
+	z-index: 100;
+}
+#main-nav .tl-options select {
+	top: 0;
+	border: none;
+}
+#main-nav .tl-options select option {
+	opacity: 0;
+	}
+#weekly-review section {
+	margin: 15px 0;
+}
+#weekly-review section h2 {
+	text-align: left;
+}
+.actions-container:focus-within {
+	outline: 2px solid #00ff70;
+	padding: 5px 0;
+	margin: 5px 0;
+}
+.actions-container.split-em > :nth-child(1),
+.actions-container.split-em > :nth-child(4)
+	{
+	width: 2%;
+	padding: 0;
+	}
+	.actions-container button:nth-child(1) span {
+		display: block;
+		margin-top: calc(49px * .5 - 9px);
+		margin-bottom: calc(49px * .5 - 9px);
+	}
+.actions-container.split-em > :nth-child(2){
+		width: 70%;
+	}
+.actions-container.split-em > :nth-child(3) {
+		width: 23%;
+	}
+.vert-lbl span {
+	transform: rotate(90deg);
+	display: inline-block;
+}
+p {
+	margin: 0;
+}
+.set-goal label {
+	margin: 5px 0;
+}
+.set-goal button {
+}
+</style><title>GSD</title></head><body><header class="justify-center" id="main-nav"><div class="container split-em eight-two"><label class="split-em two-eight"><span>WIP timelime</span><div class="tl-options pos-rel"><button class="pos-abso sr-label"><span>pause or continue timelimit</span><div class="time">1:00:00</div></button><select class="pos-abso"><option value="1 hour">1 hour</option><option value="2 hour">2 hour</option><option value="3 hour">3 hour</option><option value="4 hour">4 hour</option></select></div></label><nav><button class="menu-toggle"><span>...</span></button><ul class="menu"><li><a href="#">follow up</a></li><li><a href="#">set goals</a></li><li><a href="#">weekly review</a></li><li><a href="#">process inbox</a></li></ul></nav></div></header><main class="justify-center pos-rel" id="gsd"><section class="recall-workspace" id="weekly-review"><div class="container justify-center"><h1 class="recall-title"><span>Weekly Review</span></h1><section class="procss"><h2><span>Process:</span></h2><form id="process"><label class="sr-label split-em-end eight-two"><span>process inbox</span><button><span>inbox</span></button><input type="radio"></label><label class="sr-label split-em-end eight-two"><span>off load head</span><button><span>off load head</span></button><input type="radio"></label><label class="sr-label split-em-end eight-two"><span>process follow up</span><button><span>follow up</span></button><input type="radio"></label></form></section><section class="weed"><h2><span>Weed:</span></h2><form id="weed"><label class="sr-label split-em-end eight-two"><span>email</span><button><span>email</span></button><input type="radio"></label><label class="sr-label split-em-end eight-two"><span>calendar</span><button><span>calendar</span></button><input type="radio"></label></form></section><section id="retrospective"><h2><span>retrospective:</span></h2><section><h3><span>timelog reviews</span></h3><form id="timelogs"><article><div class="main"><h4><span>last weeks timelog review</span></h4><p><strong>review : </strong>here is what done met for last week's goal</p></div></article><label class="sr-label"><span>timelog reviews</span><textarea name="timelog reviews"></textarea></label><button class="half"><span>skip</span></button><button class="half"><span>+</span></button></form></section><section><h3><span>goal review:</span></h3><form id="goal1"><article><div class="main"><h4><span>last weeks goal1</span></h4><p><strong>done = </strong>here is what done met for last week's goal</p><strong>status: over-shot</strong><p><strong>review : </strong>here is what done met for last week's goal</p></div></article><label><span>goal1 review</span><textarea name="goal1 review"></textarea></label><button class="half"><span>skip</span></button><button class="half"><span>+</span></button></form><form id="goal2"><article><div class="main"><h4><span>last weeks goal2</span></h4><p><strong>done = </strong>here is what done met for last week's goal</p><strong>status: over-shot</strong><p><strong>review : </strong>here is what done met for last week's goal</p></div></article><label><span>goal2 review</span><textarea name="goal2 review"></textarea></label><button class="half"><span>skip</span></button><button class="half"><span>+</span></button></form><form id="goal3"><article><div class="main"><h4><span>last weeks goal3</span></h4><p><strong>done = </strong>here is what done met for last week's goal</p><strong>status: over-shot</strong><p><strong>review : </strong>here is what done met for last week's goal</p></div></article><label><span>goal3 review</span><textarea name="goal3 review"></textarea></label><button class="half"><span>skip</span></button><button class="half"><span>+</span></button></form></section><section><h3><span>workflow review:</span></h3><article><div class="main"><h4><span>last weeks workflow review</span></h4><p><strong>review : </strong>here is what done met for last week's goal</p></div></article><form id="workflow"><label class="sr-label"><span>workflow</span><textarea name="workflow"></textarea></label><button class="half"><span>skip</span></button><button class="half"><span>+</span></button></form></section><section><h3><span>backlog:</span></h3><article><div class="main"><h4><span>last weeks backlog review</span></h4><p><strong>review : </strong>here is what done met for last week's goal</p></div></article><form id="backlog"><label class="sr-label"><span>backlog</span><textarea name="backlog"></textarea></label><button class="half"><span>skip</span></button><button class="half"><span>+</span></button></form></section></section><section class="outcomes"><form id="outcomes"><h2><span>Outcomes:</span></h2><label class="sr-label split-em-end eight-two"><span>set goals</span><button><span>set goals</span></button><input type="radio"></label></form></section></div></section><section class="add-item modal center-x hide"><div class="title-container split-em eight-two"><h2><span>off load your mind</span></h2><button><span>close modal</span></button></div><div class="modal-container"><form><label class="sr-label"><span>add item</span><textarea name="addItem"></textarea></label><button><span>add</span></button></form></div></section></main><footer class="justify-center"><div class="container"><nav class="footer-nav split-em thirds"><button><span>backlog</span></button><button><span>+</span></button><button><span>next item</span></button></nav></div></footer></body></html>
