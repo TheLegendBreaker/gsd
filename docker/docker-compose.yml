@@ -17,7 +17,7 @@ services:
     volumes:
       - ./nginx/snippets:/opt/bitnami/nginx/conf/snippets
       - ./nginx:/opt/bitnami/nginx/conf/server_blocks/
-      - /var/www/build/gsd:/var/www/
+      - ../:/var/www/
     environment:
       MYSQL_HOST: db:3306
       MYSQL_DB: gsd
@@ -30,7 +30,7 @@ services:
     depends_on:
       - db
     volumes:
-      - /var/www/build/gsd/php:/app
+      - ../php:/app
     environment:
       MYSQL_HOST: db:3306
       MYSQL_DB: gsd
@@ -58,7 +58,7 @@ services:
       MYSQL_DATABASE: gsd
       MYSQL_USER: gsd_php
       MYSQL_PASSWORD: pUcn1,d6beezubxQx
-    ports:
-      - '3306:3306'
+    #ports:
+      #- '3306:3306'
     networks:
       - db-tier
