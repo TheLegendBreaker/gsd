@@ -15,9 +15,9 @@ services:
       - '80:80'
       - '443:443'
     volumes:
-      - /var/www/docker/nginx/snippets:/opt/bitnami/nginx/conf/snippets
-      - /var/www/docker/nginx:/opt/bitnami/nginx/conf/server_blocks/
-      - /var/www/:/var/www/
+      - ./nginx/snippets:/opt/bitnami/nginx/conf/snippets
+      - ./nginx:/opt/bitnami/nginx/conf/server_blocks/
+      - /var/www/build/gsd:/var/www/
     environment:
       MYSQL_HOST: db:3306
       MYSQL_DB: gsd
@@ -30,7 +30,7 @@ services:
     depends_on:
       - db
     volumes:
-      - /var/www/php:/app
+      - /var/www/build/gsd/php:/app
     environment:
       MYSQL_HOST: db:3306
       MYSQL_DB: gsd
@@ -48,9 +48,9 @@ services:
       --init-file /data/application/init.sql
     volumes:
       #- /var/www/docker/mysql/data:/var/lib/mysql
-      - /var/www/docker/mysql/init.sql:/data/application/init.sql
+      - ./mysql/init.sql:/data/application/init.sql
       - type: bind
-        source: /var/www/docker/mysql/docker.cnf
+        source: ./mysql/docker.cnf
         target: /etc/mysql/conf.d/docker.cnf
         consistency: cached
     environment:
