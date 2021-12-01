@@ -23,7 +23,7 @@ Route::add('/item', function() {
 	$data = json_decode($data, true);
 
 	if(isset($data["item"])) {
-		include 'link.php';
+		include './link.php';
 		$item = $data["item"];
 		header("Access-Control-Allow-Origin : *");
 		header("Access-Control-Allow-Credentials : true");
