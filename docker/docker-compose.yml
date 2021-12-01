@@ -13,7 +13,7 @@ services:
       - db-tier
     ports:
       - '80:80'
-      - '443:443'
+      #- '443:443'
     volumes:
       - ./nginx/snippets:/opt/bitnami/nginx/conf/snippets
       - ./nginx:/opt/bitnami/nginx/conf/server_blocks/
