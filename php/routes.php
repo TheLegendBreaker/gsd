@@ -19,6 +19,16 @@ Route::add('/', function() {
 
 Route::add('/item', function() {
 
+		include './link.php';
+
+		$response = array( "result" => get_all_items($link));
+		return json_encode( $response );
+
+	}, 'get');
+
+
+Route::add('/item', function() {
+
 	$data = file_get_contents('php://input');
 	$data = json_decode($data, true);
 

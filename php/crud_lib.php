@@ -26,6 +26,31 @@ function create_tag() {
 function delete_tag() {
 }
 
+function get_all_items($link) {
+	// returns aall items
+	// make this part of the funciton into another function
+	$result = mysqli_query($link, "SELECT * FROM item;", MYSQLI_USE_RESULT);
+	if($result) {
+		$rows = mysqli_fetch_all($result);
+		$req_items = array();
+
+		foreach ($rows as &$value) {
+			$item = array(
+				"id" => $value[0],
+				"statusId" => $value[1],
+				"entered" => $value[2],
+				"updated" => $value[3],
+				"desc" => $value[4],
+			);
+			array_push($req_items, $item);
+		}
+
+		return $req_items;
+	}
+
+		return false;
+}
+
 function get_item($link,$id) {
 	// returns a item
 	$result = mysqli_query($link, "SELECT * FROM item WHERE item.id='".$id."';", MYSQLI_USE_RESULT);
