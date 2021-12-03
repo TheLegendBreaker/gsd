@@ -65,9 +65,8 @@ Route::add('/item/([0-9]*)', function($id) {
 
 			include 'link.php';
 
-			update_item($link,$data);
 			$req_item = array(
-				"id" => "sucess",
+				"result" => update_item($link,$data),
 			);
 			return json_encode( $req_item );
 		}
@@ -83,9 +82,11 @@ Route::add('/item/([0-9]*)', function($id) {
 
 Route::add('/item/([0-9]*)/update', function($id) {
 	include 'link.php';
-	print_r($_POST);
 	$_POST['id'] = $id;
-	echo update_item($link,$_POST);
+	$req_item = array(
+		"result" => update_item($link,$data),
+	);
+	return json_encode( $req_item );
 }, 'POST');
 
 Route::add('/item/([0-9]*)', function($id) {

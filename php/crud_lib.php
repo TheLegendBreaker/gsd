@@ -1,4 +1,5 @@
 <?php
+include './query_lib.php';
 
 function get_all_tags() {
 	// returns all tags
@@ -27,11 +28,9 @@ function delete_tag() {
 }
 
 function get_all_items($link) {
-	// returns aall items
-	// make this part of the funciton into another function
-	$result = mysqli_query($link, "SELECT * FROM item;", MYSQLI_USE_RESULT);
-	if($result) {
-		$rows = mysqli_fetch_all($result);
+	// returns all items
+	$rows = select_all_from($link, "item");
+	if($rows) {
 		$req_items = array();
 
 		foreach ($rows as &$value) {
@@ -44,20 +43,17 @@ function get_all_items($link) {
 			);
 			array_push($req_items, $item);
 		}
-
 		return $req_items;
 	}
-
-		return false;
+		return $rows;
 }
 
 function get_item($link,$id) {
 	// returns a item
-	$result = mysqli_query($link, "SELECT * FROM item WHERE item.id='".$id."';", MYSQLI_USE_RESULT);
-	if($result) {
-		$row = mysqli_fetch_row($result);
-		//print_r( $row );
-		//
+	$conditions = "WHERE item.id='".$id."'";
+	$row = select_all_from($link, "item", $conditions);
+	if($row) {
+
 		$req_item = array(
 			"id" => $row[0],
 			"statusId" => $row[1],
@@ -65,35 +61,34 @@ function get_item($link,$id) {
 			"updated" => $row[3],
 			"desc" => $row[4],
 		);
-
 		return json_encode( $req_item );
 	}
-
 		return false;
 }
 
 function update_item($link,$item) {
-	$result = mysqli_query($link, "UPDATE item SET item='".$item["item"]."' WHERE id = '".$item["id"]."';", MYSQLI_USE_RESULT);
-	if($result) {
-		return true;
+	$update_query = "item='".$item["item"]."' WHERE id = '".$item["id"]."'";
+	$row = update_set($link, 'item', $update_query);
+	if($row) {
+		return $row;
 	}
 
 		return false;
 }
 
 function create_item($link,$item) {
-	$result = mysqli_query($link, "INSERT INTO item (updated, item) VALUES (NOW(),'".$item."');", MYSQLI_USE_RESULT);
-	if($result) {
+	$fields = 'item';
+	$values = strval($item);
+	$row = insert_into($link, 'item', $fields, $values);
+	if($row) {
 		return true;
 	}
-
 		return false;
 }
 
 function delete_item($link, $id) {
-	$result = mysqli_query($link, "DELETE FROM `item` WHERE item.id='".$id."';", MYSQLI_USE_RESULT);
+	$result = delete_from($link, 'item', $id);
 	if($result) {
-		echo "item.id= ".$id.". \n delete.";
 		return true;
 	}
 
