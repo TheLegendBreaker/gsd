@@ -30,31 +30,24 @@ Route::add('/item', function() {
 // item routes
 
 Route::add('/item', function() {
-
 	$data = file_get_contents('php://input');
 	$data = json_decode($data, true);
-
 	if(isset($data["item"])) {
 		include './link.php';
 		$item = $data["item"];
 		header("Access-Control-Allow-Origin : *");
 		header("Access-Control-Allow-Credentials : true");
-
 		$response = array( "result" => create_item($link,$item));
 		return json_encode( $response );
 	}
-
 	$response = array("result"=>"false");
 	return json_encode( $response );
-
 	}, 'post'); // Run the router
 
 Route::add('/item/([0-9]*)', function($id) {
 	include 'link.php';
-
 	header("Access-Control-Allow-Origin : *");
 	header("Access-Control-Allow-Credentials : true");
-
 	return get_item($link,$id);
 }, 'get');
 
@@ -62,11 +55,8 @@ Route::add('/item/([0-9]*)', function($id) {
 	if ($_SERVER['REQUEST_METHOD'] == 'PUT'){
 		$data = file_get_contents('php://input');
 		$data = json_decode($data, true);
-
 		if(isset($data["item"])) {
-
 			include 'link.php';
-
 			$req_item = array(
 				"result" => update_item($link,$data),
 			);
@@ -95,9 +85,7 @@ Route::add('/item/([0-9]*)', function($id) {
 	if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
 		header("Access-Control-Allow-Origin : *");
 		header("Access-Control-Allow-Credentials : true");
-
 		include 'link.php';
-
 		delete_item($link,$id);
 		$req_item = array(
 			"id" => "sucess",
@@ -111,7 +99,6 @@ Route::add('/item/([0-9]*)', function($id) {
 		header("Access-Control-Allow-Headers : *");
 		return;
 	}
-
 }, ['DELETE','OPTIONS']);
 
 // end item routes
@@ -201,7 +188,111 @@ Route::add('/tag/([0-9]*)', function($id) {
 	}
 
 }, ['DELETE','OPTIONS']);
-// end tag routes
 
+// end tag routes
+// backlog routes
+
+Route::add('/backlog', function() {
+
+	$data = file_get_contents('php://input');
+	$data = json_decode($data, true);
+
+	if(isset($data["item"])) {
+		include './link.php';
+		$item = $data["item"];
+		$tag = $data["tag"];
+		$backlog_item = $tag . "', '". $item;
+		header("Access-Control-Allow-Origin : *");
+		header("Access-Control-Allow-Credentials : true");
+
+		$response = array( "result" => create_backlog_item($link,$backlog_item));
+		return json_encode( $response );
+		//return "yo";
+	}
+
+	$response = array("result"=>"false");
+	return json_encode( $response );
+
+	}, 'post'); // Run the router
+
+Route::add('/backlog', function() {
+
+		include './link.php';
+
+		$response = array( "result" => get_all_backlog_items($link));
+		return json_encode( $response );
+
+	}, 'get');
+
+Route::add('/backlog/([0-9]*)', function($id) {
+	include 'link.php';
+	header("Access-Control-Allow-Origin : *");
+	header("Access-Control-Allow-Credentials : true");
+	return get_backlog_item($link,$id);
+}, 'get');
+
+Route::add('/backlog/([0-9]*)', function($id) {
+	if ($_SERVER['REQUEST_METHOD'] == 'PUT'){
+		$data = file_get_contents('php://input');
+		$data = json_decode($data, true);
+		if(isset($data["item"])) {
+			include 'link.php';
+			$req_item = array(
+				"result" => update_backlog_item($link,$id,$data),
+			);
+			return json_encode( $req_item );
+		}
+		if(isset($data["tag"])) {
+			include 'link.php';
+			$req_item = array(
+				"result" => update_backlog_item_tag($link,$id,$data),
+			);
+			return json_encode( $req_item );
+		}
+	}
+	if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
+		header("Access-Control-Allow-Origin : http://build.hectordiaz.pro");
+		header("Access-Control-Allow-Credentials : true");
+		header("Access-Control-Allow-Methods : PUT");
+		header("Access-Control-Allow-Headers : *");
+		return;
+	}
+}, ['PUT','OPTIONS']);
+
+Route::add('/backlog/([0-9]*)', function($id) {
+	if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
+		header("Access-Control-Allow-Origin : *");
+		header("Access-Control-Allow-Credentials : true");
+
+		include 'link.php';
+
+		delete_backlog_item($link,$id);
+		$req_item = array(
+			"result" => "sucess",
+		);
+		return json_encode( $req_item );
+	}
+	if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
+		header("Access-Control-Allow-Origin : http://build.hectordiaz.pro");
+		header("Access-Control-Allow-Credentials : true");
+		header("Access-Control-Allow-Methods : DELETE");
+		header("Access-Control-Allow-Headers : *");
+		return;
+	}
+
+}, ['DELETE','OPTIONS']);
+
+// end backlog routes
+// priority routes
+
+Route::add('/priority/tag/([0-9]*)', function($id) {
+	include 'link.php';
+	header("Access-Control-Allow-Origin : *");
+	header("Access-Control-Allow-Credentials : true");
+	//return get_backlog_item($link,$id);
+	return "matched".$id;
+}, 'get');
+
+// priority routes
 Route::run('/');
 ?>

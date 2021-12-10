@@ -137,9 +137,11 @@ function delete_item($link, $id) {
 }
 
 // end item table
-
 function get_priority() {
-	// returns a priority
+}
+
+function get_all_priorities_by_tag() {
+	// returns all priority that match 
 }
 
 function update_priority() {
@@ -157,23 +159,79 @@ function delete_priority() {
 	// returns boolean for successfull creation
 }
 
-function get_all_backlog_items() {
-	// returns a backlog_item
+function get_backlog_item($link, $id) {
+	// returns a tag
+	$conditions = "WHERE backlog_item.id='".$id."'";
+	$row = select_all_from($link, "backlog_item", $conditions);
+	if($row) {
+
+		$req_item = array(
+			"id" => $row[0],
+			"tag" => $row[1],
+			"item" => $row[2],
+			"entered" => $row[3],
+			"updated" => $row[4],
+		);
+		return json_encode( $req_item );
+	}
+		return false;
 }
 
-function update_backlog_item() {
-	// updates a backlog_item w/ opt to update item,status, and tag
-	// if no options are give return false
-	// returns boolean for successfull update
+function get_all_backlog_items($link) {
+	$rows = select_all_from($link, "backlog_item");
+	if($rows) {
+		$req_items = array();
+		foreach ($rows as &$value) {
+			$item = array(
+				"id" => $value[0],
+				"tag" => $value[1],
+				"item" => $value[2],
+				"entered" => $value[3],
+				"updated" => $value[4],
+			);
+			array_push($req_items, $item);
+		}
+		return $req_items;
+	}
+		return $rows;
 }
 
-function create_backlog_item() {
-	// creates a backlog_item
-	// returns boolean for successfull creation
+function update_backlog_item($link, $id, $item) {
+	$update_query = "item_id='".$item["item"]."' WHERE id = '".$id."'";
+	$row = update_set($link, 'backlog_item', $update_query);
+	if($row) {
+		return $row;
+	}
+		return false;
 }
 
-function delete_backlog_item() {
-	// deletes a backlog_item
+function update_backlog_item_tag($link, $id, $tag) {
+	$update_query = "tag_id='".$tag["tag"]."' WHERE id = '".$id."'";
+	$row = update_set($link, 'backlog_item', $update_query);
+	if($row) {
+		return $row;
+	}
+		return false;
+}
+
+function create_backlog_item($link,$item) {
+	// need id's from both item and tag
+	$fields = 'tag_id, item_id';
+	$values = strval($item);
+	$row = insert_into($link, 'backlog_item', $fields, $values);
+	if($row) {
+		return true;
+	}
+		return false;
+	return $values;
+}
+
+function delete_backlog_item($link, $id) {
+	$result = delete_from($link, 'backlog_item', $id);
+	if($result) {
+		return true;
+	}
+		return false;
 	// returns boolean for successfull creation
 }
 
