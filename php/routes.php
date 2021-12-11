@@ -2,6 +2,7 @@
 // Require the class
 include 'route.php';
 include 'crud_lib.php';
+include 'app_lib.php';
 include 'request_lib.php';
 
 // Use this namespace
@@ -33,16 +34,15 @@ Route::add('/item', function() {
 	$data = file_get_contents('php://input');
 	$data = json_decode($data, true);
 	if(isset($data["item"])) {
-		include './link.php';
 		$item = $data["item"];
 		header("Access-Control-Allow-Origin : *");
 		header("Access-Control-Allow-Credentials : true");
-		$response = array( "result" => create_item($link,$item));
+		$response = array( "result" => create_inbox_entry($item));
 		return json_encode( $response );
 	}
 	$response = array("result"=>"false");
 	return json_encode( $response );
-	}, 'post'); // Run the router
+	}, 'post');
 
 Route::add('/item/([0-9]*)', function($id) {
 	include 'link.php';
@@ -105,40 +105,30 @@ Route::add('/item/([0-9]*)', function($id) {
 // tag routes
 
 Route::add('/tag', function() {
-
 	$data = file_get_contents('php://input');
 	$data = json_decode($data, true);
-
 	if(isset($data["tag"])) {
 		include './link.php';
 		$tag = $data["tag"];
 		header("Access-Control-Allow-Origin : *");
 		header("Access-Control-Allow-Credentials : true");
-
 		$response = array( "result" => create_tag($link,$tag));
 		return json_encode( $response );
 	}
-
 	$response = array("result"=>"false");
 	return json_encode( $response );
-
-	}, 'post'); // Run the router
+	}, 'post');
 
 Route::add('/tag', function() {
-
 		include './link.php';
-
 		$response = array( "result" => get_all_tags($link));
 		return json_encode( $response );
-
 	}, 'get');
 
 Route::add('/tag/([0-9]*)', function($id) {
 	include 'link.php';
-
 	header("Access-Control-Allow-Origin : *");
 	header("Access-Control-Allow-Credentials : true");
-
 	return get_tag($link,$id);
 }, 'get');
 
@@ -146,11 +136,8 @@ Route::add('/tag/([0-9]*)', function($id) {
 	if ($_SERVER['REQUEST_METHOD'] == 'PUT'){
 		$data = file_get_contents('php://input');
 		$data = json_decode($data, true);
-
 		if(isset($data["label"])) {
-
 			include 'link.php';
-
 			$req_tag = array(
 				"result" => update_tag($link,$data),
 			);
@@ -193,10 +180,8 @@ Route::add('/tag/([0-9]*)', function($id) {
 // backlog routes
 
 Route::add('/backlog', function() {
-
 	$data = file_get_contents('php://input');
 	$data = json_decode($data, true);
-
 	if(isset($data["item"])) {
 		include './link.php';
 		$item = $data["item"];
@@ -204,7 +189,6 @@ Route::add('/backlog', function() {
 		$backlog_item = $tag . "', '". $item;
 		header("Access-Control-Allow-Origin : *");
 		header("Access-Control-Allow-Credentials : true");
-
 		$response = array( "result" => create_backlog_item($link,$backlog_item));
 		return json_encode( $response );
 		//return "yo";
@@ -283,16 +267,6 @@ Route::add('/backlog/([0-9]*)', function($id) {
 }, ['DELETE','OPTIONS']);
 
 // end backlog routes
-// priority routes
 
-Route::add('/priority/tag/([0-9]*)', function($id) {
-	include 'link.php';
-	header("Access-Control-Allow-Origin : *");
-	header("Access-Control-Allow-Credentials : true");
-	//return get_backlog_item($link,$id);
-	return "matched".$id;
-}, 'get');
-
-// priority routes
 Route::run('/');
 ?>

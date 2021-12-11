@@ -34,7 +34,7 @@ function get_tag($link, $id) {
 			"updated" => $row[2],
 			"label" => $row[3],
 		);
-		return json_encode( $req_item );
+		return $req_item;
 	}
 		return false;
 }
@@ -120,12 +120,8 @@ function update_item($link,$item) {
 
 function create_item($link,$item) {
 	$fields = 'item';
-	$values = strval($item);
-	$row = insert_into($link, 'item', $fields, $values);
-	if($row) {
-		return true;
-	}
-		return false;
+	$values = "'".$item."'";
+	return insert_into($link, 'item', $fields, $values);
 }
 
 function delete_item($link, $id) {
@@ -214,16 +210,9 @@ function update_backlog_item_tag($link, $id, $tag) {
 		return false;
 }
 
-function create_backlog_item($link,$item) {
-	// need id's from both item and tag
-	$fields = 'tag_id, item_id';
-	$values = strval($item);
-	$row = insert_into($link, 'backlog_item', $fields, $values);
-	if($row) {
-		return true;
-	}
-		return false;
-	return $values;
+function create_backlog_item($link,$values) {
+	$fields = 'item_id, tag_id, rank_order';
+	return insert_into($link, 'backlog_item', $fields, $values);
 }
 
 function delete_backlog_item($link, $id) {

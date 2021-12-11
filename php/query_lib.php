@@ -27,11 +27,11 @@ function update_set($link, $table, $update_query) {
 
 // create an entry
 function insert_into($link,$table,$feilds,$values) {
-	$result = mysqli_query($link, "INSERT INTO ".$table." (updated, ".$feilds.") VALUES (NOW(),'".$values."');", MYSQLI_USE_RESULT);
+	$q_string = "INSERT INTO ".$table." (updated, ".$feilds.") VALUES (NOW(),".$values.");";
+	$result = mysqli_query($link, $q_string, MYSQLI_USE_RESULT);
 	if($result) {
-		return true;
+		return mysqli_insert_id($link);
 	}
-
 		return false;
 }
 

@@ -105,5 +105,13 @@ if($result) {
 }
 
 // end goal
+// tags
+
+$result = mysqli_query($link, "INSERT INTO tag (updated, label) VALUES (NOW(),'inbox');", MYSQLI_USE_RESULT);
+if($result) {
+	echo "`tag.label = inbox` Entry Created. \n";
+}
+
+// end tags
 
 ?>

@@ -18,7 +18,7 @@ if($result) {
 }
 
 $result = mysqli_query($link, "CREATE TABLE IF NOT EXISTS tag ( 
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	id INT PRIMARY KEY AUTO_INCREMENT,
 	enterd TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP,
 	label VARCHAR(255) NOT NULL
@@ -104,29 +104,18 @@ if($result) {
 	echo "`goal_review` Table Created. \n";
 }
 
+	//id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 $result = mysqli_query($link, "CREATE TABLE IF NOT EXISTS backlog_item (
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	tag_id INT NOT NULL,
-	item_id INT NOT NULL,
-	entered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	updated TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP,
-	FOREIGN KEY (tag_id) REFERENCES tag(id),
-	FOREIGN KEY (item_id) REFERENCES item(id));", MYSQLI_USE_RESULT);
-if($result) {
-	echo "`backlog_item` Table Created. \n";
-}
-
-$result = mysqli_query($link, "CREATE TABLE IF NOT EXISTS priority (
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	view_id INT NOT NULL,
 	item_id INT NOT NULL,
 	rank_order INT NOT NULL,
 	entered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP,
-	FOREIGN KEY (view_id) REFERENCES tag(id),
-	FOREIGN KEY (item_id) REFERENCES item(id));", MYSQLI_USE_RESULT);
+	PRIMARY KEY (tag_id, item_id),
+	FOREIGN KEY (tag_id) REFERENCES tag(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (item_id) REFERENCES item(id) ON DELETE CASCADE ON UPDATE CASCADE);", MYSQLI_USE_RESULT);
 if($result) {
-	echo "`rank` Table Created. \n";
+	echo "`backlog_item` Table Created. \n";
 }
 
 ?>
