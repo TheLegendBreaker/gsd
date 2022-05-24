@@ -50,7 +50,9 @@ function update_tag($link, $tag) {
 
 function create_tag($link, $tag) {
 	$fields = 'label';
-	$values = strval($tag);
+	//$values = strval($tag);
+	$values = $tag;
+
 	$row = insert_into($link, 'tag', $fields, $values);
 	if($row) {
 		return true;
@@ -179,11 +181,11 @@ function get_all_backlog_items($link) {
 		$req_items = array();
 		foreach ($rows as &$value) {
 			$item = array(
-				"id" => $value[0],
+				"item" => $value[0],
 				"tag" => $value[1],
-				"item" => $value[2],
+				"priority" => $value[2],
 				"entered" => $value[3],
-				"updated" => $value[4],
+				"updated" => $value[4]
 			);
 			array_push($req_items, $item);
 		}
@@ -223,6 +225,8 @@ function delete_backlog_item($link, $id) {
 		return false;
 	// returns boolean for successfull creation
 }
+// end backlog_item
+// reviews
 
 function get_reviews() {
 	// returns a review
@@ -242,6 +246,9 @@ function delete_review() {
 	// deletes a review
 	// returns boolean for successfull creation
 }
+
+// end reviews
+// goal reviews
 
 function get_goal_reviews() {
 	// returns a goal_review

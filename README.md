@@ -10,12 +10,16 @@ heart of the workflow design is one list for everything. The almighty Backlog. T
 
 That's the heart of my current task management system. Under the recommendation of a one of the best human beings I have had the pleasure to work with, I ditched all the apps for a google doc and then a google sheet. I went form taking 2 hours to maintain 40+ local clients websites to 20 minutes. Despite complete a couple projects I found myself reaching for freatures and general feelings of, "this could be faster..." 
 
-I had to refresh on my SQL for work. I really like that language. So straight forward. I had been following a udemy course on the Agile and Scrum methodolgies. Pretty rad stuff. Inspired by the concept of User Stories. I sketched up a basic user interaction with the app and from there I was able to skitch out the basic functionality and so forth the ERD. Within a week I learned enough PHP on the file to build out the schema and create some dummy data, that I successfully queried for in MySQL shell. 
- 
-With the same method I sketched out what the features I was reaching for in my workflow would be like. And three weeks later, here we are. Since I have started this projected I have upgrading from severing hectordiaz.pro for a docker-compose file with an Nginx, PHP, and MySQL containers. I have successful run through CRUD commands  with the SQL container by way of a PHP pseudo REST (PHP PUT request are hard) API I wrote. The current todo is to add the ES6 functionality set up. So we are hear.
-
 --------------
 ## Methodology
+
+Think of the tags as a way to create new views or pages with in app. Tagging an item removes it from the Inbox and adds it to the tag's view. Adding multiple tags gives multiple views access to that same item. Now think of those views as workspaces. Eventaully each workspace will become a list of clearly defined individual task that help accomplish or maintain the object, as defined by the tag's label, of that workspace. 
+
+The most important workspace in the application is the ** Inbox **. The genisis of this project came from how difficult a spread sheet makes it to enter data in the way I needed. GSD's main goal is to become a catch for my stuff as descirbed in GTD methodology. I wanted a big easy pad to jot out a quick idea. 
+
+Everytime you visit the app, it promotes you to add an item to the inbox. It also has a big "add item to inbox" button available in all views.Inbox items are items without a tag. There is no limit on how small or big, within reason, you can make an entry to the inbox. As in GTD, in order to add a tag to an inbox item, you have to review the inbox (detailed instructions here). The makes it easy in the inbox reveiw mode by supplying all of the active tags, allow you to create new tags, and make multiple new items with specified tags.Only in this view can you add tags to newly created items. This gives us a chance to breack each item down into specific tasks for each of our workspaces. 
+
+
 
 --------------
 ## Thinking

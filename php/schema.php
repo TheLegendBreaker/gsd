@@ -106,8 +106,8 @@ if($result) {
 
 	//id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 $result = mysqli_query($link, "CREATE TABLE IF NOT EXISTS backlog_item (
-	tag_id INT NOT NULL,
 	item_id INT NOT NULL,
+	tag_id INT NOT NULL,
 	rank_order INT NOT NULL,
 	entered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP,
