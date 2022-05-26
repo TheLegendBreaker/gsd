@@ -1,0 +1,25 @@
+include template_parts.pug
+doctype html
+html(lang='en')
+	head
+		include ./part_head.pug
+		block head
+		block inlineStyles
+			link(rel="stylesheet" href="style.css")
+			+ pageBaseStyles
+			style
+				block styles
+
+		block title
+			title Hector Diaz, Web Developer
+
+	+body
+		block topbar
+			+topbar('Navigation Menu')
+		block body
+
+		block footer
+			footer
+				include part_footer.pug
+
+		block scripts

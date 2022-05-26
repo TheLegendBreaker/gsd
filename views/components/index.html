@@ -1,0 +1,783 @@
+
+<!-- variables-->
+<!-- end variables-->
+<!-- util-->
+<!-- end util-->
+<!-- components-->
+<!-- cards-->
+<!-- end cards-->
+<!-- buttons-->
+<!-- end buttons-->
+<!-- end components--><!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../gsd_style.css">
+    <style>
+      .actions-container.split-em > :nth-child(1),
+      .actions-container.split-em > :nth-child(4)
+      	{
+      	width: 5%;
+      	}
+      .actions-container.split-em > :nth-child(2){
+      		width: 70%;
+      	}
+      .actions-container.split-em > :nth-child(3) {
+      		width: 20%;
+      	}
+      .vert-lbl span {
+      	transform: rotate(90deg);
+      	display: inline-block;
+      }
+    </style>
+    <title>GSD</title>
+  </head>
+  <body>
+    <header class="justify-center" id="main-nav">
+      <div class="container split-em eight-two">
+        <label class="split-em two-eight"><span>WIP timelime</span>
+          <div class="tl-options pos-rel">
+            <button class="pos-abso sr-label"><span>pause or continue timelimit</span>
+              <div class="time">1:00:00</div>
+            </button>
+            <select class="pos-abso">
+              <option value="1 hour">1 hour</option>
+              <option value="2 hour">2 hour</option>
+              <option value="3 hour">3 hour</option>
+              <option value="4 hour">4 hour</option>
+            </select>
+          </div>
+        </label>
+        <nav>
+          <button class="menu-toggle"><span>...</span></button>
+          <ul class="menu">
+            <li><a href="#">follow up</a></li>
+            <li><a href="#">set goals</a></li>
+            <li><a href="#">weekly review</a></li>
+            <li><a href="#">process inbox</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main class="justify-center pos-rel" id="gsd">
+      <div class="title container">
+        <h1 class="recall-title split-em-end eight-two">
+          <label class="sr-label"><span>recall-view</span>
+            <select class="center-xy">
+              <option value="goal 1">goal 1</option>
+              <option value="goal 2">goal 2</option>
+              <option value="goal 3">goal 3</option>
+              <option value="backlog">backlog</option>
+              <option value="inbox">inbox</option>
+            </select>
+          </label>
+          <button><span>done?</span>
+          </button>
+        </h1>
+        <label class="define-done split-em two-six-two"><span>done =</span>
+          <textarea name="defineDone">when timestamps, labels, filters, and weekly reviews are automated.</textarea>
+          <button><span>done?</span></button>
+        </label>
+      </div>
+      <section class="recall-workspace">
+        <h2><span>workspace</span></h2>
+        <label class="sr-label search justify-center split-em-end eight-two"><span>filter items in this workspace.</span>
+          <input type="text" name="filter" value=""/>
+          <button> <span>filter</span></button>
+        </label>
+        <div class="container justify-center">
+          <div class="priority" id="priority-0" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-0">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item0"><span>action0</span>
+                <textarea name="action0">tag0: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-1" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-1">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item1"><span>action01</span>
+                <textarea name="action01">tag1: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-2" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-2">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item2"><span>action012</span>
+                <textarea name="action012">tag2: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-3" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-3">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item3"><span>action0123</span>
+                <textarea name="action0123">tag3: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-4" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-4">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item4"><span>action01234</span>
+                <textarea name="action01234">tag4: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-5" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-5">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item5"><span>action012345</span>
+                <textarea name="action012345">tag5: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-6" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-6">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item6"><span>action0123456</span>
+                <textarea name="action0123456">tag6: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-7" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-7">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item7"><span>action01234567</span>
+                <textarea name="action01234567">tag7: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-8" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-8">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item8"><span>action012345678</span>
+                <textarea name="action012345678">tag8: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-9" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-9">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item9"><span>action0123456789</span>
+                <textarea name="action0123456789">tag9: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-10" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-10">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item10"><span>action012345678910</span>
+                <textarea name="action012345678910">tag10: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-11" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-11">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item11"><span>action01234567891011</span>
+                <textarea name="action01234567891011">tag11: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-12" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-12">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item12"><span>action0123456789101112</span>
+                <textarea name="action0123456789101112">tag12: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-13" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-13">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item13"><span>action012345678910111213</span>
+                <textarea name="action012345678910111213">tag13: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-14" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-14">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item14"><span>action01234567891011121314</span>
+                <textarea name="action01234567891011121314">tag14: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-15" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-15">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item15"><span>action0123456789101112131415</span>
+                <textarea name="action0123456789101112131415">tag15: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-16" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-16">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item16"><span>action012345678910111213141516</span>
+                <textarea name="action012345678910111213141516">tag16: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-17" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-17">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item17"><span>action01234567891011121314151617</span>
+                <textarea name="action01234567891011121314151617">tag17: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-18" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-18">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item18"><span>action0123456789101112131415161718</span>
+                <textarea name="action0123456789101112131415161718">tag18: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-19" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-19">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item19"><span>action012345678910111213141516171819</span>
+                <textarea name="action012345678910111213141516171819">tag19: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-20" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-20">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item20"><span>action01234567891011121314151617181920</span>
+                <textarea name="action01234567891011121314151617181920">tag20: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-21" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-21">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item21"><span>action0123456789101112131415161718192021</span>
+                <textarea name="action0123456789101112131415161718192021">tag21: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-22" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-22">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item22"><span>action012345678910111213141516171819202122</span>
+                <textarea name="action012345678910111213141516171819202122">tag22: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-23" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-23">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item23"><span>action01234567891011121314151617181920212223</span>
+                <textarea name="action01234567891011121314151617181920212223">tag23: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-24" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-24">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item24"><span>action0123456789101112131415161718192021222324</span>
+                <textarea name="action0123456789101112131415161718192021222324">tag24: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-25" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-25">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item25"><span>action012345678910111213141516171819202122232425</span>
+                <textarea name="action012345678910111213141516171819202122232425">tag25: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-26" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-26">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item26"><span>action01234567891011121314151617181920212223242526</span>
+                <textarea name="action01234567891011121314151617181920212223242526">tag26: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-27" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-27">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item27"><span>action0123456789101112131415161718192021222324252627</span>
+                <textarea name="action0123456789101112131415161718192021222324252627">tag27: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-28" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-28">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item28"><span>action012345678910111213141516171819202122232425262728</span>
+                <textarea name="action012345678910111213141516171819202122232425262728">tag28: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+          <div class="priority" id="priority-29" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+            <form class="actions-container split-em" id="dev-29">
+              <button><span>|</span>
+              </button>
+              <label class="split three-quarter sr-label" id="item29"><span>action01234567891011121314151617181920212223242526272829</span>
+                <textarea name="action01234567891011121314151617181920212223242526272829">tag29: the next action that needs doing</textarea>
+              </label>
+              <aside class="split quarter">
+                <label class="sr-label"><span>status</span>
+                  <select>
+                    <option value="action">action</option>
+                    <option value="done">done</option>
+                    <option value="outcome">outcome</option>
+                    <option value="closed">closed</option>
+                  </select>
+                </label>
+                <time>5/6/21</time>
+              </aside>
+              <button class="vert-lbl"><span>...</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+      <section class="add-item modal center-x hide">
+        <div class="title-container split-em eight-two">
+          <h2><span>off load your mind</span></h2>
+          <button><span>close modal</span>
+          </button>
+        </div>
+        <div class="modal-container">
+          <form>
+            <label class="sr-label"><span>add item</span>
+              <textarea name="addItem"></textarea>
+            </label>
+            <button><span>add</span>
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+    <footer class="justify-center">
+      <div class="container">
+        <nav class="footer-nav split-em thirds">
+          <button><span>pervious view</span>
+          </button>
+          <button class="add-item"><span>+</span></button>
+          <button><span>next view</span>
+          </button>
+        </nav>
+      </div>
+    </footer>
+    <script src="../async.js"></script>
+    <script src="../ui_lib.js"></script>
+  </body>
+</html>

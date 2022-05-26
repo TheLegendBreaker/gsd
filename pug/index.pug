@@ -1,1 +1,83 @@
-/var/www/pug/gsd_app/index.pug
+extends ./layout.pug
+include ./mixins.pug
+block inlineStyles
+	link(rel="stylesheet" href="/gsd_style.css")
+	style.
+		.actions-container.split-em > :nth-child(1),
+		.actions-container.split-em > :nth-child(4)
+			{
+			width: 5%;
+			}
+		.actions-container.split-em > :nth-child(2){
+				width: 70%;
+			}
+		.actions-container.split-em > :nth-child(3) {
+				width: 20%;
+			}
+		.vert-lbl span {
+			transform: rotate(90deg);
+			display: inline-block;
+		}
+block title
+	title GSD
+block topbar
+	+ topBar 
+
+block body
+	main#gsd.justify-center.pos-rel
+		.title.container
+			h1.recall-title.split-em-end.eight-two
+				+ xyLabelSelect("recall-view").sr-label
+					- oName="goal 1"
+					+ optionPart(oName,oValue=oName)
+					- oName="goal 2"
+					+ optionPart(oName,oValue=oName)
+					- oName="goal 3"
+					+ optionPart(oName,oValue=oName)
+					- oName="backlog"
+					+ optionPart(oName,oValue=oName)
+					- oName="inbox"
+					+ optionPart(oName,oValue=oName)
+
+				+ btn('done?')
+
+			- var iValue = "when timestamps, labels, filters, and weekly reviews are automated."
+			- var iLabel = "done ="
+			- var iName = "defineDone"
+			+ textArea(iLabel,iName,iValue).define-done.split-em.two-six-two
+				button
+					span done?
+
+		section.recall-workspace
+			+secondTitleLabel('workspace')
+			+txtInput('filter items in this workspace.','filter','').sr-label.search.justify-center.split-em-end.eight-two
+				button 
+					span filter
+
+			.container.justify-center
+
+				+ tagBackLog
+
+		section.add-item.modal.center-x.hide
+			.title-container.split-em.eight-two
+				+titleLabel('2', 'off load your mind')
+				+ btn('close modal')
+
+			.modal-container
+				form
+					+ textArea('add item','addItem').sr-label
+					+ txtInput('add a tag to the new item', 'tag','').sr-label.tag
+					+ btn('add')
+
+block footer
+	footer.justify-center
+		.container
+			nav.footer-nav.split-em.thirds
+				+ btn('pervious view')
+				button.add-item
+					span +
+				+ btn('next view')
+
+block scripts
+	script(src="/async.js")
+	script(src="/ui_lib.js")

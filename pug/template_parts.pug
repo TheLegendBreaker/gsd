@@ -1,0 +1,235 @@
+
+// variables
+
+- var siteName = "Hector's Web Portfolio"
+
+// end variables
+//- style block
+
+mixin pageBaseStyles 
+	// atomize style rules for page base styles
+	style.
+		*{ 
+			box-sizing: border-box; 
+			font-family: Helvetica, Arial, Sans, 'Open Sans';
+			scroll-behavior: smooth;
+			}
+		body {
+			padding: 0 30px;
+			margin: 0;
+			overflow-x: hidden;
+			background: #f4f4f4;
+		} 
+		#top-bar h1, #top-bar h2 {
+			font-size: 1em;
+			font-weight: normal;
+			margin: 0;
+		}
+		.card {
+		width: 100%;
+		}
+		.sr-title .title {
+			opacity:0;position:absolute;top:0;left:0;
+			}
+		*[class*=split-], *[class*=-split] .content, *[class*=-split] figure {
+			display: inline-block;
+			vertical-align: top;
+			width: 100%;
+		}
+		.split-60, .six-four-split .content {
+			min-width: 250px;
+			width: 55%;
+			max-width: calc(1200px * .55);
+		}
+		.split-60+.split-40 {
+			left: 0;
+		}
+		.split-40+.split-60 {
+			left: calc(1200px * .35);
+		}
+		.split-40, .six-four-split figure {
+			max-width: calc(1200px * .35);
+			min-width: 400px;;
+			width: 100%;
+			margin: 0;
+		}
+		.cta-container.stack .btn.cta {
+			display: block;
+			margin: 15px 0;
+		}
+		.tagline {
+			font-size: 2em;
+			margin-top: 0;
+		}
+		.tagline span {
+			font-weight: 500;
+			}
+		.card-container {
+			padding-bottom: 40px;
+		}
+		.card-container + .card-container {
+			padding-top: 40px;
+		}
+		.card-container:nth-last-child(1) {
+			padding-bottom: 0px;
+		}
+		.split {
+			display: inline-block;
+			vertical-align: top;
+		}
+		figure {
+			margin: 0;
+		}
+		.crop {
+			overflow: hidden;
+			height: 100%;
+			max-height: 300px;
+		}
+		.crop img {
+			height: auto;
+			width: 100%;
+		}
+		section[id] {
+			margin-bottom: 80px;
+		}
+
+//-mixin cardBaseStyles
+	//-include ../static/css/cards-base.css
+
+//-mixin singleCardBaseStyles
+	//-include ../static/css/single-card-base.css
+
+//-mixin graphicCardBaseStyles
+	//-include ../static/css/graphic-card-base.css
+
+//-mixin threeCardBaseStyles
+	//-include ../static/css/three-cards-base.css
+
+//-mixin heroBaseStyles
+	//-include ../static/css/hero-base.css
+
+//-mixin topbarBaseStyles
+	//-include ../static/css/top-bar-base.css
+
+//-mixin containerBaseStyles
+	//-include ../static/css/container-base.css
+
+//- end style block
+// util
+
+mixin evenSplit
+	.half&attributes(attributes)
+		block
+
+mixin body
+	body&attributes(attributes)
+		block
+
+mixin a(slug)
+	a(href!=slug)&attributes(attributes)
+		block
+
+mixin aNewTab(slug)
+	a(href!=slug target="_blank")&attributes(attributes)
+		block
+
+mixin container
+	.container
+		block
+
+mixin pageSection(title)
+	section&attributes(attributes)
+		h2.title.container
+			span!= title
+		+container
+			block
+
+mixin threeCardSection(sectionTitle)
+	+pageSection(sectionTitle)(class="three-cards")&attributes(attributes)
+		block
+
+mixin heroSection(sectionTitle)
+	+pageSection(sectionTitle)(id="hero")&attributes(attributes)
+		block
+
+- var logoBoxBaseStyles =` position:relative;max-width:200px;max-height:200px;width:33vw;height:33vw;  `
+
+mixin logoMark(logoBoxStyles=logoBoxBaseStyles,logoStyles=false)
+	.logo-container(style!=logoBoxStyles)&attributes(attributes)
+		.mark(style="mask:url(hector-diaz-full-stack-web-developer-and-accessiblity-specialist--for-hire-logo.svg);-webkit-mask-image:url(hector-diaz-full-stack-web-developer-and-accessiblity-specialist--for-hire-logo.svg);mask-size:100%;-webkit-mask-size:100%;-webkit-mask-repeat: no-repeat;position:absolute;top:0;left:0;width:100%;height:100%;")
+			.holo-bg(style="background-color:aqua;position:absolute;top:0;left:0;width:100%;height:100%;")
+// end util
+// components
+//- topbar
+
+mixin flagPost(name=siteName)
+	#flag-post!=name
+
+mixin nav(navTitle=false)
+	nav&attributes(attributes)
+		if navTitle != false
+			h2!=navTitle
+		ul(style="list-style:none;margin:0;")
+			li
+				+a('#') Resume
+			li
+				+a('#') Contact
+			li
+				+a('#') Portfolio
+			li
+				+a('#') Blog
+
+mixin topbar(navTitle=false)
+	header#top-bar
+		+ container
+			+ evenSplit
+				+ flagPost
+			+ evenSplit
+				+ nav(navTitle)(id="main-nav")
+
+
+//- end topbar
+//- banners
+
+mixin heroBanner(heroTitle)
+	+heroSection(heroTitle)&attributes(attributes)
+		block
+
+//- end banners
+// cards
+
+mixin newCard
+	.card-container&attributes(attributes)
+		article.card
+			block
+
+mixin newcardGraphic(options=false)
+	figure
+		.crop&attributes(attributes)
+			if options != false
+				img(src!=options['src'] alt!=options['alt'])
+		if block
+			figcaption
+				block
+
+mixin cardBody(title)
+	h3.title
+		span.align!= title
+	.content&attributes(attributes)
+		.align
+			block
+
+// end cards
+// buttons
+
+mixin cta(slug)
+	+a.btn.cta(href!= slug)
+		block
+
+mixin contained-cta(slug)
+	.cta.container
+		+cta(slug)
+			block
+
+// end buttons
+// end components

@@ -18,50 +18,31 @@ if($result) {
 }
 
 // end review items
-// goal status
-
-$result = mysqli_query($link, "INSERT INTO goal_status (updated, label) VALUES (NOW(),'open');", MYSQLI_USE_RESULT);
-if($result) {
-	echo "`goal_status.label = open` Entry Created. \n";
-}
-
-$result = mysqli_query($link, "INSERT INTO goal_status (updated, label) VALUES (NOW(),'done');", MYSQLI_USE_RESULT);
-if($result) {
-	echo "`goal_status.label = done` Entry Created. \n";
-}
-
-$result = mysqli_query($link, "INSERT INTO goal_status (updated, label) VALUES (NOW(),'deferred');", MYSQLI_USE_RESULT);
-if($result) {
-	echo "`goal_status.label = deferred` Entry Created. \n";
-}
-
-$result = mysqli_query($link, "INSERT INTO goal_status (updated, label) VALUES (NOW(),'closed');", MYSQLI_USE_RESULT);
-if($result) {
-	echo "`goal_status.label = closed` Entry Created. \n";
-}
-
-// end goal status
 //item status
 
-$result = mysqli_query($link, "INSERT INTO item_status (updated, label) VALUES (NOW(),'next action');", MYSQLI_USE_RESULT);
+$result = mysqli_query($link, "INSERT INTO status (updated, label) VALUES (NOW(),'open');", MYSQLI_USE_RESULT);
 if($result) {
-	echo "`item_status.label = next action` Entry Created. \n";
+	echo "`status.label = next action` Entry Created. \n";
 }
 
-$result = mysqli_query($link, "INSERT INTO item_status (updated, label) VALUES (NOW(),'done');", MYSQLI_USE_RESULT);
+$result = mysqli_query($link, "INSERT INTO status (updated, label) VALUES (NOW(),'next action');", MYSQLI_USE_RESULT);
 if($result) {
-	echo "`item_status.label = done` Entry Created. \n";
+	echo "`status.label = next action` Entry Created. \n";
 }
 
-$result = mysqli_query($link, "INSERT INTO item_status (updated, label) VALUES (NOW(),'deferred');", MYSQLI_USE_RESULT);
+$result = mysqli_query($link, "INSERT INTO status (updated, label) VALUES (NOW(),'done');", MYSQLI_USE_RESULT);
 if($result) {
-	echo "`item_status.label = deferred` Entry Created. \n";
+	echo "`status.label = done` Entry Created. \n";
 }
 
-$result = mysqli_query($link, "INSERT INTO item_status (updated, label) VALUES (NOW(),'closed');", MYSQLI_USE_RESULT);
+$result = mysqli_query($link, "INSERT INTO status (updated, label) VALUES (NOW(),'deferred');", MYSQLI_USE_RESULT);
 if($result) {
-	echo "`item_status.label = closed` Entry Created. \n";
+	echo "`status.label = deferred` Entry Created. \n";
 }
+
+$result = mysqli_query($link, "INSERT INTO status (updated, label) VALUES (NOW(),'closed');", MYSQLI_USE_RESULT);
+if($result) {
+	echo "`status.label = closed` Entry Created. \n"; }
 
 //end item status
 // wip limit

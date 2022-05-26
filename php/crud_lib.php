@@ -110,6 +110,24 @@ function get_item($link,$id) {
 		return false;
 }
 
+function get_item_by_tag($link,$id) {
+	// returns a item
+	//get_tag($link,$id)
+	$row = select_all_from($link, "item", $conditions);
+	if($row) {
+
+		$req_item = array(
+			"id" => $row[0],
+			"statusId" => $row[1],
+			"entered" => $row[2],
+			"updated" => $row[3],
+			"desc" => $row[4],
+		);
+		return json_encode( $req_item );
+	}
+		return false;
+}
+
 function update_item($link,$item) {
 	$update_query = "item='".$item["item"]."' WHERE id = '".$item["id"]."'";
 	$row = update_set($link, 'item', $update_query);
@@ -121,8 +139,8 @@ function update_item($link,$item) {
 }
 
 function create_item($link,$item) {
-	$fields = 'item';
-	$values = "'".$item."'";
+	$fields = 'item, status_id';
+	$values = "'".$item."'".",'1'";
 	return insert_into($link, 'item', $fields, $values);
 }
 
@@ -158,8 +176,7 @@ function delete_priority() {
 }
 
 function get_backlog_item($link, $id) {
-	// returns a tag
-	$conditions = "WHERE backlog_item.id='".$id."'";
+	$conditions = "WHERE backlog_item.item_id='".$id."'";
 	$row = select_all_from($link, "backlog_item", $conditions);
 	if($row) {
 

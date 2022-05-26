@@ -1,1 +1,132 @@
-/var/www/pug/gsd_app/process-inbox.pug
+extends ../layout.pug
+include ./mixins.pug
+block inlineStyles
+	link(rel="stylesheet" href="../gsd_style.css")
+	style.
+		#main-nav .container label > span {
+			font-size: 12px;
+			padding-left: 5px;
+		}
+		#main-nav .tl-options {
+			min-height: 33px;
+		} 
+		#main-nav .tl-options > * {
+			left: 0;
+		}
+		#main-nav .tl-options button{
+			z-index: 50;
+			width: calc(100% - 11px);
+			bottom: 0;
+		}
+		#main-nav .tl-options select:hover {
+			z-index: 100;
+		}
+		#main-nav .tl-options select {
+			top: 0;
+			border: none;
+		}
+		#main-nav .tl-options select option {
+			opacity: 0;
+			}
+		.actions-container:focus-within {
+			outline: 2px solid #00ff70;
+			padding: 5px 0;
+			margin: 5px 0;
+		}
+		.actions-container.split-em > :nth-child(1),
+		.actions-container.split-em > :nth-child(4)
+			{
+			width: 2%;
+			padding: 0;
+			}
+			.actions-container button:nth-child(1) span {
+				display: block;
+				margin-top: calc(49px * .5 - 9px);
+				margin-bottom: calc(49px * .5 - 9px);
+			}
+		.actions-container.split-em > :nth-child(2){
+				width: 70%;
+			}
+		.actions-container.split-em > :nth-child(3) {
+				width: 23%;
+			}
+		.vert-lbl span {
+			transform: rotate(90deg);
+			display: inline-block;
+		}
+		p {
+			margin: 0;
+		}
+		.set-goal label {
+			margin: 5px 0;
+		}
+		.set-goal button {
+		}
+
+block title
+	title GSD
+block topbar
+	+ topBar
+
+block body
+	main#gsd.justify-center.pos-rel
+		section.recall-workspace
+			//-.title.container
+			.container.justify-center
+				h1.recall-title
+					span inbox
+
+				form.set-goal
+
+					- var iValue="the thing that was on my mind."
+					- var iName="inbox item"
+					- var label = iName
+
+					p this is a place to think on the item by free writing
+					+ textArea(label,iName,iValue)
+
+					- var sLabel = "add to tag"
+					+ selectTag(sLabel)
+
+					+ btn('skip').half
+					+ btn('+').half
+
+			section.recall-workspace
+				.container.justify-center
+					.title
+						+ titleLabel('2', 'expoud')
+
+					// automatically updates when the goal's tag is changed.
+					+ tagBackLog(3,'tag0:')
+
+					// add an area to 'think' on the the item.
+
+			section.recall-workspace
+				.container.justify-center
+					.title
+						+ titleLabel('2', '"tag:" backlog')
+
+					// automatically updates when the goal's tag is changed.
+					+ tagBackLog
+
+		section.add-item.modal.center-x.hide
+			.title-container.split-em.eight-two
+				+titleLabel('2', 'off load your mind')
+				+ btn('close modal')
+
+			.modal-container
+				form
+					+ textArea('add item','addItem').sr-label
+					+ btn('add')
+
+block footer
+	footer.justify-center
+		.container
+			+ footerNav('backlog','next item')
+			//-nav.footer-nav.split-em.thirds
+				+ btn('view inbox')
+				button.add-item
+					span +
+				+ btn('next goal')
+
+

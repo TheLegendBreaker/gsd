@@ -1,1 +1,322 @@
-/var/www/pug/gsd_app/mixins.pug
+mixin baseStyleBlock
+	style.
+		*{ 
+			box-sizing: border-box; 
+			font-family: Helvetica, Arial, Sans, 'Open Sans';
+			scroll-behavior: smooth;
+			outline: dotted 1px aqua;
+			}
+		body {
+			margin: 0;
+			overflow-x: hidden;
+			background-color: #fff;
+			width: 100vw;
+		} 
+		#main-nav {
+			background-color: #f4f4f4;
+			position: fixed;
+			text-align: right;
+			top: 0;
+			left: calc(50vw - (375px/2));
+			z-index: 100;
+		}
+		#main-nav label {
+			display: inline-block;
+		}
+		#main-nav label span {
+			position: static;
+			opacity: 1;
+		}
+		#main-nav ul {
+			opacity: 0;
+			position: absolute;
+			top: 0;
+			left: calc(50vw - (375px/2));
+			z-index: -10;
+		}
+		#main-nav,#gsd, footer {
+			max-width:375px;
+			width: 100vw;
+		}
+		#gsd{
+			padding-top: 30px;
+			background-color: #f4f4f4;
+			min-height: 100vh;
+		}
+		.justify-center {
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.search {
+			width: 80%;
+		}
+		.title.container {
+			text-align: center;
+		}
+		.define-done {
+			display: inline-block;
+			max-width: 80%;
+			width: 100vw;
+			text-align: left;
+			margin:10px 0;
+		}
+		.recall-title {
+			margin: 0;
+		}
+		.recall-title select { 
+			font-size: inherit;
+			text-transform: capitalize;
+			}
+		h1,h2,h3,h4 {
+			font-weight: 500;
+		}
+		section>h2 {
+			margin: 0;
+			text-align: center
+		}
+		.split,.split-em>*{
+			display: inline-block;
+			vertical-align: top;
+		}
+		.split-em.even>* {
+			min-width: 350px;
+			width: 48%;
+			max-width: calc(1200px * .45);
+		}
+		.split-em.thirds>*{
+			width: 33%;
+			max-width: calc(1200px * .33);
+		}
+		.split-em.thirds> :nth-child(2){
+			margin: .5%;
+			}
+		.split.two,.split-em.two-eight>:nth-child(1){
+			width: calc(100% * .2);
+			max-width: calc(1200px * .2);
+		}
+		.split.eight,.split-em.two-eight>:nth-child(2){
+			width: calc(100% * .8);
+			max-width: calc(1200px * .8);
+		}
+		.split-em.eight-two>:nth-child(2){
+			width: calc(100% * .2);
+			max-width: calc(1200px * .2);
+		}
+		.split-em.eight-two>:nth-child(1){
+			width: calc(100% * .75);
+			max-width: calc(1200px * .75);
+		}
+		.split-em.four-six>:nth-child(1){
+			width: 40%;
+		}
+		.split-em.four-six>:nth-child(2){
+			width: 55%;
+		}
+		.split.quarter {
+			width: calc(100% * .25);
+			max-width: calc(1200px * .25);
+		}
+		.split.three-quarter {
+			width: calc(100% * .75);
+			max-width: calc(1200px * .75);
+		}
+		label {
+			display: block;
+			position: relative;
+		}
+		label span {
+			position: absolute;
+			opacity: 0;
+			top: 0;
+			left: 0;
+			z-index: -1;
+			text-align: left;
+		}
+		label input {
+			width: 100%;
+		}
+		.actions-container {
+			margin: 10px 0;
+		}
+		textarea {
+			margin: 0;
+			font-size: .8em;
+			width: 100%;
+			max-width: 100%;
+			height: 30px;
+		}
+		label select {
+			width: 100%;
+			text-align: center;
+		}
+		section .container {
+			max-width: 80%;
+		}
+		footer {
+			position: fixed;
+			bottom: 0;
+			left: calc(50vw - (375px/2));
+			background-color: #f4f4f4;
+		}
+
+//- util
+
+mixin topTitleLabel(label)
+	h1&attributes(attributes)
+		span!=label
+
+mixin secondTitleLabel(label)
+	h2&attributes(attributes)
+		span!=label
+
+mixin thirdTitleLabel(label)
+	h3&attributes(attributes)
+		span!=label
+
+mixin fourthTitleLabel(label)
+	h4&attributes(attributes)
+		span!=label
+
+mixin titleLabel(level,label)
+	if level == 1
+		+ topTitleLabel(label)&attributes(attributes)
+	if level == 2
+		+ secondTitleLabel(label)&attributes(attributes)
+	if level == 3
+		+ thirdTitleLabel(label)&attributes(attributes)
+	if level == 4
+		+ fourthTitleLabel(label)&attributes(attributes)
+
+mixin fieldset(legend)
+	fieldset&attributes(attributes)
+		legend!=legend
+			block
+
+mixin label(label)
+	label&attributes(attributes)
+		span!=label
+		block
+
+mixin textArea(label,tName,tValue)
+		label&attributes(attributes)
+			span!=label
+			textarea(name!=tName)!=tValue
+			block
+
+mixin txtInput(label,iName,iValue)
+		label&attributes(attributes)
+			span!=label
+			input(type="text" name!=iName value!=iValue)
+			block
+
+mixin labelSelect(label,iName,iValue)
+		label&attributes(attributes)
+			span!=label
+			select(name!=iName)
+				block
+
+mixin xyLabelSelect(label,iName,iValue)
+		label&attributes(attributes)
+			span!=label
+			select(name!=iName).center-xy
+				block
+
+mixin optionPart(oName,oValue)
+	option(value!=oValue)!=oName
+
+mixin btn(btnLabel)
+	button&attributes(attributes)
+		span!= btnLabel
+		block
+
+//- end util
+//- components
+
+mixin topBar()
+	header#main-nav.justify-center
+		.container.split-em.eight-two
+			+ label('WIP timelime').split-em.two-eight
+				.tl-options.pos-rel
+					+ btn('pause or continue timelimit').pos-abso.sr-label
+						.time 1:00:00
+					select.pos-abso
+						- var oName="1 hour"
+						+ optionPart(oName,oValue=oName)
+						- oName="2 hour"
+						+ optionPart(oName,oValue=oName)
+						- oName="3 hour"
+						+ optionPart(oName,oValue=oName)
+						- oName="4 hour"
+						+ optionPart(oName,oValue=oName)
+
+			nav
+				button.menu-toggle
+					span ...
+				ul.menu
+					li
+						a(href="#") follow up
+					li
+						a(href="#") set goals
+					li
+						a(href="#") weekly review
+					li
+						a(href="#") process inbox
+
+
+//- end components
+//- wire frame parts
+
+mixin iterate(amount)
+	- var iteration= 0
+	while iteration<amount
+		block
+		- iteration+= 1
+
+mixin tagBackLog(amount=30)
+	- var iName="action"
+	- var label
+	- var iteration= 0
+
+	while iteration<amount
+		-iName = iName + iteration
+		-label = iName
+		-iValue ="tag"+iteration+": the next action that needs doing"
+
+		.priority(id!="priority-" + iteration ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)")
+			form(id!="dev-"+iteration).actions-container.split-em
+				+ btn('|')
+
+				+ textArea(label,iName,iValue)(id!='item'+iteration).split.three-quarter.sr-label
+
+				aside.split.quarter
+					+ labelSelect("status").sr-label
+						- var oName="action"
+						+ optionPart(oName,oValue=oName)
+						- var oName="done"
+						+ optionPart(oName,oValue=oName)
+						- var oName="outcome"
+						+ optionPart(oName,oValue=oName)
+						- var oName="closed"
+						+ optionPart(oName,oValue=oName)
+					time 5/6/21
+
+				+ btn('...').vert-lbl
+
+		-iteration+= 1
+
+mixin selectTag(sLabel)
+	+ labelSelect(sLabel)&attributes(attributes)
+		- var oName="tag:"
+		- var iteration = 0
+			while iteration<10
+				- oName= iteration + oName
+				+ optionPart(oName,oValue=oName)
+				- iteration += 1;
+
+mixin footerNav(first,third,second='+')
+	nav.footer-nav.split-em.thirds
+		+ btn(first)
+		+ btn(second)
+		+ btn(third)
+
+//- end wire frame parts

@@ -2,6 +2,7 @@ version: "3.9"
 
 services:
   dcap-server:
+    # include comments for all ther other properties
     volumes:
       - ../gsd/:/var/www/gsd
     environment:

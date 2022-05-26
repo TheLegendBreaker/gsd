@@ -14,6 +14,13 @@ function format_value_string($value) {
 	return "'".$value."'";
 }
 
+// varables
+
+$version_name  = 'api/';
+$version_number = 'v1/';
+$version = $version_name.''.$version_number;
+//$version = 'api/v1/';
+
 // set up the dev env with this route
 Route::add('/', function() {
 
@@ -50,14 +57,26 @@ Route::add('/item', function() {
 	}
 	$response = array("result"=>"false");
 	return json_encode( $response );
-	}, 'post');
+}, 'post');
 
 // get item by id
 Route::add('/item/([0-9]*)', function($id) {
 	include 'link.php';
 	header("Access-Control-Allow-Origin : *");
 	header("Access-Control-Allow-Credentials : true");
+	// also formats the status from an id to the status's label
+	// can also return an item's tag if it's not the inbox
 	return get_item($link,$id);
+}, 'get');
+
+// get item by id
+Route::add('/item/tag/([0-9]*)', function($id) {
+	include 'link.php';
+	header("Access-Control-Allow-Origin : *");
+	header("Access-Control-Allow-Credentials : true");
+	// also formats the status from an id to the status's label
+	// can also return an item's tag if it's not the inbox
+	return get_item_by_tag($link,$id);
 }, 'get');
 
 Route::add('/item/([0-9]*)', function($id) {
@@ -140,7 +159,10 @@ Route::add('/tag/([0-9]*)', function($id) {
 	include 'link.php';
 	header("Access-Control-Allow-Origin : *");
 	header("Access-Control-Allow-Credentials : true");
-	return get_tag($link,$id);
+	$req_tag = array(
+		"result" => get_tag($link,$id),
+	);
+	return json_encode( $req_tag );
 }, 'get');
 
 Route::add('/tag/([0-9]*)', function($id) {
@@ -148,6 +170,7 @@ Route::add('/tag/([0-9]*)', function($id) {
 		$data = file_get_contents('php://input');
 		$data = json_decode($data, true);
 		if(isset($data["label"])) {
+			$data["id"]=$id;
 			include 'link.php';
 			$req_tag = array(
 				"result" => update_tag($link,$data),
@@ -288,5 +311,5 @@ Route::add('/backlog/([0-9]*)', function($id) {
 
 // end backlog routes
 
-Route::run('/');
+Route::run('/'.$version);
 ?>

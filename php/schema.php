@@ -27,24 +27,14 @@ if($result) {
 	echo "`tag` Table Created. \n";
 }
 
-$result = mysqli_query($link, "CREATE TABLE IF NOT EXISTS item_status ( 
+$result = mysqli_query($link, "CREATE TABLE IF NOT EXISTS status ( 
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	enterd TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP,
 	label VARCHAR(255) NOT NULL
 	);", MYSQLI_USE_RESULT);
 if($result) {
-	echo "`item_status` Table Created. \n";
-}
-
-$result = mysqli_query($link, "CREATE TABLE IF NOT EXISTS goal_status ( 
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	enterd TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	updated TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP,
-	label VARCHAR(255) NOT NULL
-	);", MYSQLI_USE_RESULT);
-if($result) {
-	echo "`goal_status` Table Created. \n";
+	echo "`status` Table Created. \n";
 }
 
 $result = mysqli_query($link, "CREATE TABLE IF NOT EXISTS review (
@@ -64,7 +54,7 @@ $result = mysqli_query($link, "CREATE TABLE IF NOT EXISTS item (
 	entered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP,
 	item LONGTEXT NOT NULL,
-	FOREIGN KEY (status_id) REFERENCES item_status(id));", MYSQLI_USE_RESULT);
+	FOREIGN KEY (status_id) REFERENCES status(id));", MYSQLI_USE_RESULT);
 if($result) {
 	echo "`item` Table Created. \n";
 }
@@ -88,7 +78,7 @@ $result = mysqli_query($link, "CREATE TABLE IF NOT EXISTS goal (
 	label VARCHAR(255) NOT NULL,
 	FOREIGN KEY (tag_id) REFERENCES tag(id),
 	FOREIGN KEY (limit_id) REFERENCES wip_limit(id),
-	FOREIGN KEY (status_id) REFERENCES goal_status(id));", MYSQLI_USE_RESULT);
+	FOREIGN KEY (status_id) REFERENCES status(id));", MYSQLI_USE_RESULT);
 if($result) {
 	echo "`goal` Table Created. \n";
 }

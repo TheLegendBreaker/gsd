@@ -1,1 +1,103 @@
-/var/www/pug/gsd_app/goal-setup.pug
+extends ../layout.pug
+include ./mixins.pug
+block inlineStyles
+	link(rel="stylesheet" href="../gsd_style.css")
+	style.
+		.actions-container:focus-within {
+			outline: 2px solid #00ff70;
+			padding: 5px 0;
+			margin: 5px 0;
+		}
+		.actions-container.split-em > :nth-child(1),
+		.actions-container.split-em > :nth-child(4)
+			{
+			width: 5%;
+			}
+		.actions-container.split-em > :nth-child(2){
+				width: 70%;
+			}
+		.actions-container.split-em > :nth-child(3) {
+				width: 20%;
+			}
+		.vert-lbl span {
+			transform: rotate(90deg);
+			display: inline-block;
+		}
+		p {
+			margin: 0;
+		}
+		.set-goal label {
+			margin: 5px 0;
+		}
+		.set-goal button {
+				width: 100%;
+		}
+
+block title
+	title GSD
+block topbar
+	+ topBar
+
+block body
+	main#gsd.justify-center.pos-rel
+		section.recall-workspace
+			//-.title.container
+			.container.justify-center
+				h1.recall-title
+					span Set Goal 1
+
+				.week-of.split-em.four-six.txt-center
+						span week of:
+						// auto populates w/ the first date of next week
+						p 2021-6-5
+
+				form.set-goal
+
+					- var sLabel = "update this goals tag"
+
+					mixin selectTag(sLabel)
+						+ labelSelect(sLabel)&attributes(attributes)
+							- var oName="tag:"
+							- var iteration = 0
+								while iteration<10
+									- oName= iteration + oName
+									+ optionPart(oName,oValue=oName)
+									- iteration += 1;
+					+ selectTag(sLabel)
+
+					- var iValue="tag: the next action that needs doing"
+					- var iName="definition of done:"
+					- var label = iName
+
+					+ textArea(label,iName,iValue)
+
+					+ btn('update goal')
+
+			section.recall-workspace
+				.container.justify-center
+					.title
+						+ titleLabel('2', '"tag:" backlog')
+
+					// automatically updates when the goal's tag is changed.
+					+ tagBackLog
+
+		section.add-item.modal.center-x.hide
+			.title-container.split-em.eight-two
+				+titleLabel('2', 'off load your mind')
+				+ btn('close modal')
+
+			.modal-container
+				form
+					+ textArea('add item','addItem').sr-label
+					+ btn('add')
+
+block footer
+	footer.justify-center
+		.container
+			nav.footer-nav.split-em.thirds
+				+ btn('view inbox')
+				button.add-item
+					span +
+				+ btn('next goal')
+
+

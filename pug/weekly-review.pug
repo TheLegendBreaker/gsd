@@ -1,1 +1,237 @@
-/var/www/pug/gsd_app/weekly-review.pug
+extends ../layout.pug
+include ./mixins.pug
+block inlineStyles
+	link(rel="stylesheet" href="../gsd_style.css")
+	style.
+		#main-nav .container label > span {
+			font-size: 12px;
+			padding-left: 5px;
+		}
+		#main-nav .tl-options {
+			min-height: 33px;
+		} 
+		#main-nav .tl-options > * {
+			left: 0;
+		}
+		#main-nav .tl-options button{
+			z-index: 50;
+			width: calc(100% - 11px);
+			bottom: 0;
+		}
+		#main-nav .tl-options select:hover {
+			z-index: 100;
+		}
+		#main-nav .tl-options select {
+			top: 0;
+			border: none;
+		}
+		#main-nav .tl-options select option {
+			opacity: 0;
+			}
+		#weekly-review section {
+			margin: 15px 0;
+		}
+		#weekly-review section h2 {
+			text-align: left;
+		}
+		.actions-container:focus-within {
+			outline: 2px solid #00ff70;
+			padding: 5px 0;
+			margin: 5px 0;
+		}
+		.actions-container.split-em > :nth-child(1),
+		.actions-container.split-em > :nth-child(4)
+			{
+			width: 2%;
+			padding: 0;
+			}
+			.actions-container button:nth-child(1) span {
+				display: block;
+				margin-top: calc(49px * .5 - 9px);
+				margin-bottom: calc(49px * .5 - 9px);
+			}
+		.actions-container.split-em > :nth-child(2){
+				width: 70%;
+			}
+		.actions-container.split-em > :nth-child(3) {
+				width: 23%;
+			}
+		.vert-lbl span {
+			transform: rotate(90deg);
+			display: inline-block;
+		}
+		p {
+			margin: 0;
+		}
+		.set-goal label {
+			margin: 5px 0;
+		}
+		.set-goal button {
+		}
+
+block title
+	title GSD
+block topbar
+	+ topBar
+
+block body
+	main#gsd.justify-center.pos-rel
+		section#weekly-review.recall-workspace
+			//-.title.container
+			.container.justify-center
+				h1.recall-title
+					span Weekly Review
+
+				section.procss
+					+ titleLabel('2','Process:')
+
+					form#process
+						+ label ('process inbox').sr-label.split-em-end.eight-two
+							+ btn('inbox')
+							input(type="radio")
+						+ label ('off load head').sr-label.split-em-end.eight-two
+							+ btn('off load head')
+							input(type="radio")
+						+ label ('process follow up').sr-label.split-em-end.eight-two
+							+ btn('follow up')
+							input(type="radio")
+
+				section.weed
+					+ titleLabel('2','Weed:')
+
+					form#weed
+						+ label ('email').sr-label.split-em-end.eight-two
+							+ btn('email')
+							input(type="radio")
+						+ label ('calendar').sr-label.split-em-end.eight-two
+							+ btn('calendar')
+							input(type="radio")
+
+				section#retrospective
+					+ titleLabel('2','retrospective:')
+
+					section
+						- var iValue=""
+						- var iName="timelog reviews"
+						- var label = iName
+
+						+ titleLabel('3',iName)
+						form#timelogs
+							article
+								.main
+									+ titleLabel('4','last weeks timelog review')
+									p <strong>review : </strong>here is what done met for last week's goal
+							+ textArea(label,iName,iValue).sr-label
+
+							+ btn('skip').half
+							+ btn('+').half
+
+					section
+						-  iValue=""
+						-  iName="goal review:"
+
+						+ titleLabel('3',iName)
+						form#goal1
+							-  iName="goal1 review"
+							-  label = iName
+							article
+								.main
+									+ titleLabel('4','last weeks goal1')
+									p <strong>done = </strong>here is what done met for last week's goal
+									strong status: over-shot
+									p <strong>review : </strong>here is what done met for last week's goal
+
+							+ textArea(label,iName,iValue)
+							+ btn('skip').half
+							+ btn('+').half
+
+						form#goal2
+							article
+								.main
+									+ titleLabel('4','last weeks goal2')
+									p <strong>done = </strong>here is what done met for last week's goal
+									strong status: over-shot
+									p <strong>review : </strong>here is what done met for last week's goal
+							-  iName="goal2 review"
+							-  label = iName
+							+ textArea(label,iName,iValue)
+							+ btn('skip').half
+							+ btn('+').half
+
+						form#goal3
+							article
+								.main
+									+ titleLabel('4','last weeks goal3')
+									p <strong>done = </strong>here is what done met for last week's goal
+									strong status: over-shot
+									p <strong>review : </strong>here is what done met for last week's goal
+							-  iName="goal3 review"
+							-  label = iName
+							+ textArea(label,iName,iValue)
+							+ btn('skip').half
+							+ btn('+').half
+
+					section
+						-  iValue=""
+						-  iName="workflow review:"
+
+						+ titleLabel('3',iName)
+						article
+							.main
+								+ titleLabel('4','last weeks workflow review')
+								p <strong>review : </strong>here is what done met for last week's goal
+
+						form#workflow
+							-  iName="workflow"
+							-  label = iName
+							+ textArea(label,iName,iValue).sr-label
+							+ btn('skip').half
+							+ btn('+').half
+
+					section
+						-  iValue=""
+						-  iName="backlog:"
+
+						+ titleLabel('3',iName)
+
+						article
+							.main
+								+ titleLabel('4','last weeks backlog review')
+								p <strong>review : </strong>here is what done met for last week's goal
+
+						form#backlog
+							-  iName="backlog"
+							-  label = iName
+							+ textArea(label,iName,iValue).sr-label
+							+ btn('skip').half
+							+ btn('+').half
+
+				section.outcomes
+					form#outcomes
+						+ titleLabel('2','Outcomes:')
+						+ label ('set goals').sr-label.split-em-end.eight-two
+							+ btn('set goals')
+							input(type="radio")
+
+
+		section.add-item.modal.center-x.hide
+			.title-container.split-em.eight-two
+				+titleLabel('2', 'off load your mind')
+				+ btn('close modal')
+
+			.modal-container
+				form
+					+ textArea('add item','addItem').sr-label
+					+ btn('add')
+
+block footer
+	footer.justify-center
+		.container
+			+ footerNav('backlog','next item')
+			//-nav.footer-nav.split-em.thirds
+				+ btn('view inbox')
+				button.add-item
+					span +
+				+ btn('next goal')
+
+
