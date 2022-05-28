@@ -1,10 +1,17 @@
 <?php
 
 // get all or one entry;
-function select_all_from($link, $table, $conditions="") {
+function select_all_from($link, $table, $conditions="", $all_rows=false) {
+	// update to use an $all boolean variable
 	if($conditions == ""){
+		// get all if there are no condtions
 		$sql_fetch = "mysqli_fetch_all";
-	} else {
+	} elseif($all_rows==true){
+		// get all if there are condtions
+		// and format conditions
+		$conditions = " ". $conditions;
+		$sql_fetch = "mysqli_fetch_all";
+	}else {
 		$conditions = " ". $conditions;
 		$sql_fetch = "mysqli_fetch_row";
 	}

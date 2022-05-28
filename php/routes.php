@@ -69,15 +69,6 @@ Route::add('/item/([0-9]*)', function($id) {
 	return get_item($link,$id);
 }, 'get');
 
-// get item by id
-Route::add('/item/tag/([0-9]*)', function($id) {
-	include 'link.php';
-	header("Access-Control-Allow-Origin : *");
-	header("Access-Control-Allow-Credentials : true");
-	// also formats the status from an id to the status's label
-	// can also return an item's tag if it's not the inbox
-	return get_item_by_tag($link,$id);
-}, 'get');
 
 Route::add('/item/([0-9]*)', function($id) {
 	if ($_SERVER['REQUEST_METHOD'] == 'PUT'){
@@ -310,6 +301,65 @@ Route::add('/backlog/([0-9]*)', function($id) {
 }, ['DELETE','OPTIONS']);
 
 // end backlog routes
+// goal routes
 
+// get all goals
+Route::add('/goal', function() {
+
+		include './link.php';
+
+		$response = array( "result" => get_all_goals($link));
+		return json_encode( $response );
+
+}, 'get');
+
+// get gaol by id
+Route::add('/goal/([0-9]*)', function($id) {
+
+	header("Access-Control-Allow-Origin : *");
+	header("Access-Control-Allow-Credentials : true");
+	
+	include './link.php';
+	$response = array( "result" => get_goal($link,$id));
+	return json_encode( $response );
+	//return $id;
+
+}, 'get');
+
+// get gaol by criteria
+Route::add('/goal/([a-z-0-9-]*)/([a-z-0-9-]*)', function($field,$value) {
+	header("Access-Control-Allow-Origin : *");
+	header("Access-Control-Allow-Credentials : true");
+	
+	$criteria = array($field=>$value);
+	include './link.php';
+	$response = array( "result" => get_goal_by($link,$criteria));
+	return json_encode( $response );
+	//return $id;
+
+}, 'get');
+
+// update goal
+Route::add('/goal/([0-9]*)', function($id) {
+	if ($_SERVER['REQUEST_METHOD'] == 'PUT'){
+		$data = file_get_contents('php://input');
+		$data = json_decode($data, true);
+		if(isset($data["label"])) {
+			include 'link.php';
+			//return 'update '.$id;
+			$req_item = array(
+				"result" => update_goal($link,$id,$data),
+			);
+			return json_encode( $req_item );
+		}
+	}
+	if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
+		header("Access-Control-Allow-Origin : http://build.hectordiaz.pro");
+		header("Access-Control-Allow-Credentials : true");
+		header("Access-Control-Allow-Methods : PUT");
+		header("Access-Control-Allow-Headers : *");
+		return;
+	}
+}, ['PUT','OPTIONS']);
 Route::run('/'.$version);
 ?>

@@ -22,7 +22,7 @@ if($result) {
 
 $result = mysqli_query($link, "INSERT INTO status (updated, label) VALUES (NOW(),'open');", MYSQLI_USE_RESULT);
 if($result) {
-	echo "`status.label = next action` Entry Created. \n";
+	echo "`status.label = open` Entry Created. \n";
 }
 
 $result = mysqli_query($link, "INSERT INTO status (updated, label) VALUES (NOW(),'next action');", MYSQLI_USE_RESULT);
@@ -70,17 +70,17 @@ if($result) {
 // end wip limit
 // goal
 
-$result = mysqli_query($link, "INSERT INTO goal (updated, label, status_id, limit_id) VALUES (NOW(),'goal1',(SELECT id FROM goal_status WHERE label='open'), (SELECT id FROM wip_limit WHERE time_limit='2 hour'));", MYSQLI_USE_RESULT);
+$result = mysqli_query($link, "INSERT INTO goal (updated, label, status_id, limit_id, done_def, done) VALUES (NOW(),'goal1',(SELECT id FROM status WHERE label='open'), (SELECT id FROM wip_limit WHERE time_limit='2 hour'),'what does done look like?', false);", MYSQLI_USE_RESULT);
 if($result) {
 	echo "`goal.label = goal1` Entry Created. \n";
 }
 
-$result = mysqli_query($link, "INSERT INTO goal (updated, label, status_id, limit_id) VALUES (NOW(),'goal2',(SELECT id FROM goal_status WHERE label='open'), (SELECT id FROM wip_limit WHERE time_limit='2 hour'));", MYSQLI_USE_RESULT);
+$result = mysqli_query($link, "INSERT INTO goal (updated, label, status_id, limit_id, done_def, done) VALUES (NOW(),'goal2',(SELECT id FROM status WHERE label='open'), (SELECT id FROM wip_limit WHERE time_limit='2 hour'),'what does done look like?', false);", MYSQLI_USE_RESULT);
 if($result) {
 	echo "`goal.label = goal2` Entry Created. \n";
 }
 
-$result = mysqli_query($link, "INSERT INTO goal (updated, label, status_id, limit_id) VALUES (NOW(),'goal3',(SELECT id FROM goal_status WHERE label='open'), (SELECT id FROM wip_limit WHERE time_limit='2 hour'));", MYSQLI_USE_RESULT);
+$result = mysqli_query($link, "INSERT INTO goal (updated, label, status_id, limit_id, done_def, done) VALUES (NOW(),'goal3',(SELECT id FROM status WHERE label='open'), (SELECT id FROM wip_limit WHERE time_limit='2 hour'), 'what does done look like?', false);", MYSQLI_USE_RESULT);
 if($result) {
 	echo "`goal.label = goal3` Entry Created. \n";
 }

@@ -285,18 +285,122 @@ function delete_goal_review() {
 	// deletes a goal_review
 	// returns boolean for successfull creation
 }
+function create_goal($link, $goal) {
+	$fields = 'label, done_def';
+	//$values = strval($goal);
+	$values = $goal;
 
-function get_goals() {
-	// returns a goal
+	$row = insert_into($link, 'goal', $fields, $values);
+	if($row) {
+		return true;
+	}
+		return false;
 }
 
-function get_goal() {
-	// returns a goal
+function get_all_goals($link) {
+	$rows = select_all_from($link, "goal");
+	if($rows) {
+		$req_items = array();
+
+		foreach ($rows as &$value) {
+			$item = array(
+				"id" => $value[0],
+				"tagId" => $value[1],
+				"limitId" => $value[2],
+				"statusId" => $value[3],
+				"entered" => $value[4],
+				"updated" => $value[5],
+				"label" => $value[6],
+				"done" => $value[8],
+			);
+			array_push($req_items, $item);
+		}
+		return $req_items;
+	}
+		//return $rows;
+		return 'no rows';
 }
 
-function update_goal() {
+function get_goal($link, $id) {
+	// returns a goal
+	$conditions = "WHERE goal.id='".$id."'";
+	$row = select_all_from($link, "goal", $conditions);
+	if($row) {
+
+		$req_item = array(
+			"id" => $row[0],
+			"tagId" => $row[1],
+			"limitId" => $row[2],
+			"statusId" => $row[3],
+			"entered" => $row[4],
+			"updated" => $row[5],
+			"label" => $row[6],
+		);
+		return $req_item;
+	}
+		return false;
+}
+
+function get_goal_by($link, $criteria) {
+	// returns a goal
+	$conditions = "WHERE ";
+	foreach($criteria as $key => $value) {
+		if(is_string($value)){
+			$conditions .= "goal.".$key."='".$value."'";
+		}
+		else {
+			$conditions .= "goal.".$key."=".$value;
+		}
+	}
+
+	$rows = select_all_from($link, "goal", $conditions, $all_rows=true);
+	if($rows) {
+
+		$req_items = array();
+
+		foreach ($rows as &$value) {
+			$item = array(
+				"id" => $value[0],
+				"tagId" => $value[1],
+				"limitId" => $value[2],
+				"statusId" => $value[3],
+				"entered" => $value[4],
+				"updated" => $value[5],
+				"label" => $value[6],
+			);
+			array_push($req_items, $item);
+		}
+		return $req_items;
+	}
+		return false;
+}
+function update_goal($link, $id, $goal) {
 	// updates a goal's label w/ opt to add goals to goal
+
+	$update_query = "";
+	foreach($goal as $key => $value) {
+		if(is_string($value)){
+			$update_query .= $key."='".$value."'";
+		}
+		else {
+			$update_query .= $key."=".$value;
+		}
+	}
+	$update_query .= " WHERE id = '".$id."'";
+	$row = update_set($link, 'goal', $update_query);
+	if($row) {
+		return $row;
+	}
+		return false;
 	// returns boolean for successfull update
+}
+
+function delete_goal($link, $id) {
+	$result = delete_from($link, 'goal', $id);
+	if($result) {
+		return true;
+	}
+		return false;
 }
 
 function get_item_statuses() {
