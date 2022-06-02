@@ -86,13 +86,13 @@ if($result) {
 }
 
 // end goal
-// tags
+// projects
 
-$result = mysqli_query($link, "INSERT INTO tag (updated, label) VALUES (NOW(),'inbox');", MYSQLI_USE_RESULT);
+$result = mysqli_query($link, "INSERT INTO project (updated, label) VALUES (NOW(),'inbox');", MYSQLI_USE_RESULT);
 if($result) {
-	echo "`tag.label = inbox` Entry Created. \n";
+	echo "`project.label = inbox` Entry Created. \n";
 }
 
-// end tags
+// end projects
 
 ?>

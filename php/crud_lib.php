@@ -1,31 +1,31 @@
 <?php
 include './query_lib.php';
 
-// tag table
+// project table
 
-function get_all_tags($link) {
-	$rows = select_all_from($link, "tag");
+function get_all_projects($link) {
+	$rows = select_all_from($link, "project");
 	if($rows) {
 		$req_items = array();
 
 		foreach ($rows as &$value) {
-			$tag = array(
+			$project = array(
 				"id" => $value[0],
 				"entered" => $value[1],
 				"updated" => $value[2],
 				"label" => $value[3],
 			);
-			array_push($req_items, $tag);
+			array_push($req_items, $project);
 		}
 		return $req_items;
 	}
 		return $rows;
 }
 
-function get_tag($link, $id) {
-	// returns a tag
-	$conditions = "WHERE tag.id='".$id."'";
-	$row = select_all_from($link, "tag", $conditions);
+function get_project($link, $id) {
+	// returns a project
+	$conditions = "WHERE project.id='".$id."'";
+	$row = select_all_from($link, "project", $conditions);
 	if($row) {
 
 		$req_item = array(
@@ -39,63 +39,63 @@ function get_tag($link, $id) {
 		return false;
 }
 
-function update_tag($link, $tag) {
-	$update_query = "label='".$tag["label"]."' WHERE id = '".$tag["id"]."'";
-	$row = update_set($link, 'tag', $update_query);
+function update_project($link, $project) {
+	$update_query = "label='".$project["label"]."' WHERE id = '".$project["id"]."'";
+	$row = update_set($link, 'project', $update_query);
 	if($row) {
 		return $row;
 	}
 		return false;
 }
 
-function create_tag($link, $tag) {
+function create_project($link, $project) {
 	$fields = 'label';
-	//$values = strval($tag);
-	$values = $tag;
+	//$values = strval($project);
+	$values = $project;
 
-	$row = insert_into($link, 'tag', $fields, $values);
+	$row = insert_into($link, 'project', $fields, $values);
 	if($row) {
 		return true;
 	}
 		return false;
 }
 
-function delete_tag($link, $id) {
-	$result = delete_from($link, 'tag', $id);
+function delete_project($link, $id) {
+	$result = delete_from($link, 'project', $id);
 	if($result) {
 		return true;
 	}
 		return false;
 }
 
-// end tag table
+// end project table
 // item table
 
-function get_all_items($link) {
-	// returns all items
-	$rows = select_all_from($link, "item");
+function get_all_tasks($link) {
+	// returns all tasks
+	$rows = select_all_from($link, "task");
 	if($rows) {
-		$req_items = array();
+		$req_tasks = array();
 
 		foreach ($rows as &$value) {
-			$item = array(
+			$task = array(
 				"id" => $value[0],
 				"statusId" => $value[1],
 				"entered" => $value[2],
 				"updated" => $value[3],
 				"desc" => $value[4],
 			);
-			array_push($req_items, $item);
+			array_push($req_items, $task);
 		}
 		return $req_items;
 	}
 		return $rows;
 }
 
-function get_item($link,$id) {
-	// returns a item
-	$conditions = "WHERE item.id='".$id."'";
-	$row = select_all_from($link, "item", $conditions);
+function get_task($link,$id) {
+	// returns a task
+	$conditions = "WHERE task.id='".$id."'";
+	$row = select_all_from($link, "task", $conditions);
 	if($row) {
 
 		$req_item = array(
@@ -110,27 +110,27 @@ function get_item($link,$id) {
 		return false;
 }
 
-function get_item_by_tag($link,$id) {
-	// returns a item
-	//get_tag($link,$id)
-	$row = select_all_from($link, "item", $conditions);
+function get_task_by_project($link,$id) {
+	// returns a task
+	//get_project($link,$id)
+	$row = select_all_from($link, "task", $conditions);
 	if($row) {
 
-		$req_item = array(
+		$req_task = array(
 			"id" => $row[0],
 			"statusId" => $row[1],
 			"entered" => $row[2],
 			"updated" => $row[3],
 			"desc" => $row[4],
 		);
-		return json_encode( $req_item );
+		return json_encode( $req_task );
 	}
 		return false;
 }
 
-function update_item($link,$item) {
-	$update_query = "item='".$item["item"]."' WHERE id = '".$item["id"]."'";
-	$row = update_set($link, 'item', $update_query);
+function update_task($link,$task) {
+	$update_query = "task='".$task["task"]."' WHERE id = '".$task["id"]."'";
+	$row = update_set($link, 'task', $update_query);
 	if($row) {
 		return $row;
 	}
@@ -138,25 +138,25 @@ function update_item($link,$item) {
 		return false;
 }
 
-function create_item($link,$item) {
-	$fields = 'item, status_id';
-	$values = "'".$item."'".",'1'";
-	return insert_into($link, 'item', $fields, $values);
+function create_task($link,$task) {
+	$fields = 'task, status_id';
+	$values = "'".$task."'".",'1'";
+	return insert_into($link, 'task', $fields, $values);
 }
 
-function delete_item($link, $id) {
-	$result = delete_from($link, 'item', $id);
+function delete_task($link, $id) {
+	$result = delete_from($link, 'task', $id);
 	if($result) {
 		return true;
 	}
 		return false;
 }
 
-// end item table
+// end task table
 function get_priority() {
 }
 
-function get_all_priorities_by_tag() {
+function get_all_priorities_by_project() {
 	// returns all priority that match 
 }
 
@@ -175,74 +175,6 @@ function delete_priority() {
 	// returns boolean for successfull creation
 }
 
-function get_backlog_item($link, $id) {
-	$conditions = "WHERE backlog_item.item_id='".$id."'";
-	$row = select_all_from($link, "backlog_item", $conditions);
-	if($row) {
-
-		$req_item = array(
-			"id" => $row[0],
-			"tag" => $row[1],
-			"item" => $row[2],
-			"entered" => $row[3],
-			"updated" => $row[4],
-		);
-		return json_encode( $req_item );
-	}
-		return false;
-}
-
-function get_all_backlog_items($link) {
-	$rows = select_all_from($link, "backlog_item");
-	if($rows) {
-		$req_items = array();
-		foreach ($rows as &$value) {
-			$item = array(
-				"item" => $value[0],
-				"tag" => $value[1],
-				"priority" => $value[2],
-				"entered" => $value[3],
-				"updated" => $value[4]
-			);
-			array_push($req_items, $item);
-		}
-		return $req_items;
-	}
-		return $rows;
-}
-
-function update_backlog_item($link, $id, $item) {
-	$update_query = "item_id='".$item["item"]."' WHERE id = '".$id."'";
-	$row = update_set($link, 'backlog_item', $update_query);
-	if($row) {
-		return $row;
-	}
-		return false;
-}
-
-function update_backlog_item_tag($link, $id, $tag) {
-	$update_query = "tag_id='".$tag["tag"]."' WHERE id = '".$id."'";
-	$row = update_set($link, 'backlog_item', $update_query);
-	if($row) {
-		return $row;
-	}
-		return false;
-}
-
-function create_backlog_item($link,$values) {
-	$fields = 'item_id, tag_id, rank_order';
-	return insert_into($link, 'backlog_item', $fields, $values);
-}
-
-function delete_backlog_item($link, $id) {
-	$result = delete_from($link, 'backlog_item', $id);
-	if($result) {
-		return true;
-	}
-		return false;
-	// returns boolean for successfull creation
-}
-// end backlog_item
 // reviews
 
 function get_reviews() {
@@ -308,7 +240,7 @@ function get_all_goals($link) {
 		foreach ($rows as &$value) {
 			$item = array(
 				"id" => $value[0],
-				"tagId" => $value[1],
+				"projectId" => $value[1],
 				"limitId" => $value[2],
 				"statusId" => $value[3],
 				"entered" => $value[4],
@@ -332,7 +264,7 @@ function get_goal($link, $id) {
 
 		$req_item = array(
 			"id" => $row[0],
-			"tagId" => $row[1],
+			"projectId" => $row[1],
 			"limitId" => $row[2],
 			"statusId" => $row[3],
 			"entered" => $row[4],
@@ -364,7 +296,7 @@ function get_goal_by($link, $criteria) {
 		foreach ($rows as &$value) {
 			$item = array(
 				"id" => $value[0],
-				"tagId" => $value[1],
+				"projectId" => $value[1],
 				"limitId" => $value[2],
 				"statusId" => $value[3],
 				"entered" => $value[4],
@@ -410,8 +342,8 @@ function get_item_statuses() {
 	// returns a item_status
 }
 
-function get_item_status() {
-	// returns a item_status
+function get_task_status() {
+	// returns a task_status
 }
 
 function get_goal_status() {
@@ -434,12 +366,8 @@ function get_wip_timelimit() {
 	// returns a wip_timelimit
 }
 
-function get_backlog_by_tag() {
-// returns all backlog items by tag
-}
-
 function get_inbox() {
-	// returns all items w/o tags in order of oldest item first.
+	// returns all items w/o projects in order of oldest item first.
 }
 
 function get_weekly_review() {

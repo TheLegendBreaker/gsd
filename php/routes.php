@@ -65,7 +65,7 @@ Route::add('/item/([0-9]*)', function($id) {
 	header("Access-Control-Allow-Origin : *");
 	header("Access-Control-Allow-Credentials : true");
 	// also formats the status from an id to the status's label
-	// can also return an item's tag if it's not the inbox
+	// can also return an item's project if it's not the inbox
 	return get_item($link,$id);
 }, 'get');
 
@@ -121,18 +121,18 @@ Route::add('/item/([0-9]*)', function($id) {
 }, ['DELETE','OPTIONS']);
 
 // end item routes
-// tag routes
+// project routes
 
-// create a tag
-Route::add('/tag', function() {
+// create a project
+Route::add('/project', function() {
 	$data = file_get_contents('php://input');
 	$data = json_decode($data, true);
-	if(isset($data["tag"])) {
+	if(isset($data["project"])) {
 		include './link.php';
-		$tag = format_value_string($data["tag"]);
+		$project = format_value_string($data["project"]);
 		header("Access-Control-Allow-Origin : *");
 		header("Access-Control-Allow-Credentials : true");
-		$response = array( "result" => create_tag($link,$tag));
+		$response = array( "result" => create_project($link,$project));
 		return json_encode( $response );
 	}
 	$response = array("result"=>"false");
@@ -140,33 +140,33 @@ Route::add('/tag', function() {
 	}, 
 'post');
 
-Route::add('/tag', function() {
+Route::add('/project', function() {
 		include './link.php';
-		$response = array( "result" => get_all_tags($link));
+		$response = array( "result" => get_all_projects($link));
 		return json_encode( $response );
 	}, 'get');
 
-Route::add('/tag/([0-9]*)', function($id) {
+Route::add('/project/([0-9]*)', function($id) {
 	include 'link.php';
 	header("Access-Control-Allow-Origin : *");
 	header("Access-Control-Allow-Credentials : true");
-	$req_tag = array(
-		"result" => get_tag($link,$id),
+	$req_project = array(
+		"result" => get_project($link,$id),
 	);
-	return json_encode( $req_tag );
+	return json_encode( $req_project );
 }, 'get');
 
-Route::add('/tag/([0-9]*)', function($id) {
+Route::add('/project/([0-9]*)', function($id) {
 	if ($_SERVER['REQUEST_METHOD'] == 'PUT'){
 		$data = file_get_contents('php://input');
 		$data = json_decode($data, true);
 		if(isset($data["label"])) {
 			$data["id"]=$id;
 			include 'link.php';
-			$req_tag = array(
-				"result" => update_tag($link,$data),
+			$req_project = array(
+				"result" => update_project($link,$data),
 			);
-			return json_encode( $req_tag );
+			return json_encode( $req_project );
 		}
 	}
 	if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
@@ -178,18 +178,18 @@ Route::add('/tag/([0-9]*)', function($id) {
 	}
 }, ['PUT','OPTIONS']);
 
-Route::add('/tag/([0-9]*)', function($id) {
+Route::add('/project/([0-9]*)', function($id) {
 	if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
 		header("Access-Control-Allow-Origin : *");
 		header("Access-Control-Allow-Credentials : true");
 
 		include 'link.php';
 
-		delete_tag($link,$id);
-		$req_tag = array(
+		delete_project($link,$id);
+		$req_project = array(
 			"id" => "sucess",
 		);
-		return json_encode( $req_tag );
+		return json_encode( $req_project );
 	}
 	if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
 		header("Access-Control-Allow-Origin : http://build.hectordiaz.pro");
@@ -201,106 +201,7 @@ Route::add('/tag/([0-9]*)', function($id) {
 
 }, ['DELETE','OPTIONS']);
 
-// end tag routes
-// backlog routes
-
-// create a backlog
-Route::add('/backlog', function() {
-	$data = file_get_contents('php://input');
-	$data = json_decode($data, true);
-	if(isset($data["item"])) {
-		include './link.php';
-		$item = $data["item"];
-		//$item = format_value_string( $data["item"] );
-		$tag = $data["tag"];
-		//$tag = format_value_string( $data["tag"] );
-		$priority = 0;
-		//$priority = "'0'";
-		if(isset($data["priority"])){
-			$priority = format_value_string( $data["priority"] );
-		}
-		//$backlog_item = " ". $item .", ". $tag .", ". $priority;
-		$backlog_item = "(SELECT id FROM item WHERE id= ". $item ."), (SELECT id FROM tag WHERE id= ". $tag ."), ". $priority;
-		header("Access-Control-Allow-Origin : *");
-		header("Access-Control-Allow-Credentials : true");
-		$response = array( "result" => create_backlog_item($link,$backlog_item));
-		return json_encode( $response );
-	}
-	$response = array("result"=>"false");
-	return json_encode( $response );
-	}, 'post'); // Run the router
-
-// get all backlog items
-Route::add('/backlog', function() {
-		include './link.php';
-		$response = array( "result" => get_all_backlog_items($link));
-		return json_encode( $response );
-	}, 'get');
-
-// get backlog item by item id
-Route::add('/backlog/([0-9]*)', function($id) {
-	include 'link.php';
-	header("Access-Control-Allow-Origin : *");
-	header("Access-Control-Allow-Credentials : true");
-	return get_backlog_item($link,$id);
-}, 'get');
-
-// get backlog item by item id
-// get backlog item by tag id
-
-// updated backlog item by id
-Route::add('/backlog/([0-9]*)', function($id) {
-	if ($_SERVER['REQUEST_METHOD'] == 'PUT'){
-		$data = file_get_contents('php://input');
-		$data = json_decode($data, true);
-		if(isset($data["item"])) {
-			include 'link.php';
-			$req_item = array(
-				"result" => update_backlog_item($link,$id,$data),
-			);
-			return json_encode( $req_item );
-		}
-		if(isset($data["tag"])) {
-			include 'link.php';
-			$req_item = array(
-				"result" => update_backlog_item_tag($link,$id,$data),
-			);
-			return json_encode( $req_item );
-		}
-	}
-	if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
-		header("Access-Control-Allow-Origin : http://build.hectordiaz.pro");
-		header("Access-Control-Allow-Credentials : true");
-		header("Access-Control-Allow-Methods : PUT");
-		header("Access-Control-Allow-Headers : *");
-		return;
-	}
-}, ['PUT','OPTIONS']);
-
-Route::add('/backlog/([0-9]*)', function($id) {
-	if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
-		header("Access-Control-Allow-Origin : *");
-		header("Access-Control-Allow-Credentials : true");
-
-		include 'link.php';
-
-		delete_backlog_item($link,$id);
-		$req_item = array(
-			"result" => "sucess",
-		);
-		return json_encode( $req_item );
-	}
-	if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
-		header("Access-Control-Allow-Origin : http://build.hectordiaz.pro");
-		header("Access-Control-Allow-Credentials : true");
-		header("Access-Control-Allow-Methods : DELETE");
-		header("Access-Control-Allow-Headers : *");
-		return;
-	}
-
-}, ['DELETE','OPTIONS']);
-
-// end backlog routes
+// end project routes
 // goal routes
 
 // get all goals
