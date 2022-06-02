@@ -285,16 +285,19 @@ function delete_goal_review() {
 	// deletes a goal_review
 	// returns boolean for successfull creation
 }
+
 function create_goal($link, $goal) {
-	$fields = 'label, done_def';
-	//$values = strval($goal);
-	$values = $goal;
+	//$fields = 'label, done_def, done';
+	$fields = 'label, status_id, limit_id, done_def, done';
+	$status_id = isset($goal['status_id']) ? "'".$goal['status_id']."'" : "(SELECT id FROM status WHERE label='open')";
+	$wip_limit = isset($goal['wip_limit']) ? "'".$goal['wip_limit']."'" : "(SELECT id FROM wip_limit WHERE time_limit='2 hour')";
+	$values = "'".$goal['label']."', ".$status_id.", ".$wip_limit.", '".$goal['done_def']."', false";
 
 	$row = insert_into($link, 'goal', $fields, $values);
 	if($row) {
-		return true;
+		return $row;
 	}
-		return false;
+	return "no row returned. ".$row;
 }
 
 function get_all_goals($link) {

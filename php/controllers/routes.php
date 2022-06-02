@@ -306,10 +306,8 @@ Route::add('/backlog/([0-9]*)', function($id) {
 // get all goals
 Route::add('/goal', function() {
 
-		include './controller/goal_controller.php';
 		include './link.php';
 
-		//return get_all($link);
 		$response = array( "result" => get_all_goals($link));
 		return json_encode( $response );
 
@@ -356,50 +354,12 @@ Route::add('/goal/([0-9]*)', function($id) {
 		}
 	}
 	if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
-		header("Access-Control-Allow-Origin : *");
+		header("Access-Control-Allow-Origin : http://build.hectordiaz.pro");
 		header("Access-Control-Allow-Credentials : true");
 		header("Access-Control-Allow-Methods : PUT");
 		header("Access-Control-Allow-Headers : *");
 		return;
 	}
 }, ['PUT','OPTIONS']);
-
-// create goal
-Route::add('/goal', function() {
-	$data = file_get_contents('php://input');
-	$data = json_decode($data, true);
-	if(isset($data["goal"])) {
-		include 'link.php';
-		$goal = $data["goal"];
-		header("Access-Control-Allow-Origin : *");
-		header("Access-Control-Allow-Credentials : true");
-		$response = array( "result" => create_goal($link, $goal));
-		//mysqli_close($link);
-		return json_encode( $response );
-	}
-	$response = array("result"=>"data not valid");
-	return json_encode( $response );
-}, 'post');
-
-// delete goal by id
-Route::add('/goal/([0-9]*)', function($id) {
-	if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
-		header("Access-Control-Allow-Origin : *");
-		header("Access-Control-Allow-Credentials : true");
-		include 'link.php';
-		delete_goal($link,$id);
-		$req_item = array(
-			"id" => "sucess",
-		);
-		return json_encode( $req_item );
-	}
-	if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
-		header("Access-Control-Allow-Origin : *");
-		header("Access-Control-Allow-Credentials : true");
-		header("Access-Control-Allow-Methods : DELETE");
-		header("Access-Control-Allow-Headers : *");
-		return;
-	}
-}, ['DELETE','OPTIONS']);
 Route::run('/'.$version);
 ?>
