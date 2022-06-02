@@ -153,28 +153,32 @@ function delete_task($link, $id) {
 }
 
 // end task table
-function get_priority() {
+// review_items
+
+function get_review_item() {
+	// returns a review_item
 }
 
-function get_all_priorities_by_project() {
-	// returns all priority that match 
+function get_review_items() {
+	// returns all review_item
 }
 
-function update_priority() {
-	// updates a priority's label w/ opt to add prioritys to priority
+function update_review_item() {
+	// updates a review_item's label w/ opt to add review_items to review_item
 	// returns boolean for successfull update
 }
 
-function create_priority() {
-	// creates a priority
+function create_review_item() {
+	// creates a review_item
 	// returns boolean for successfull creation
 }
 
-function delete_priority() {
-	// deletes a priority
+function delete_review_item() {
+	// deletes a review
 	// returns boolean for successfull creation
 }
 
+// end review_items
 // reviews
 
 function get_reviews() {

@@ -31,27 +31,27 @@ Route::add('/', function() {
 
 	}, 'get');
 
-Route::add('/item', function() {
+Route::add('/task', function() {
 
 		include './link.php';
 
-		$response = array( "result" => get_all_items($link));
+		$response = array( "result" => get_all_tasks($link));
 		return json_encode( $response );
 
 	}, 'get');
 
 // end dev env set up
-// item routes
+// task routes
 
-// create an item
-Route::add('/item', function() {
+// create an task
+Route::add('/task', function() {
 	$data = file_get_contents('php://input');
 	$data = json_decode($data, true);
-	if(isset($data["item"])) {
-		$item = $data["item"];
+	if(isset($data["task"])) {
+		$task = $data["task"];
 		header("Access-Control-Allow-Origin : *");
 		header("Access-Control-Allow-Credentials : true");
-		$response = array( "result" => create_inbox_entry($item));
+		$response = array( "result" => create_inbox_entry($task));
 	mysqli_close($link);
 		return json_encode( $response );
 	}
@@ -59,27 +59,27 @@ Route::add('/item', function() {
 	return json_encode( $response );
 }, 'post');
 
-// get item by id
-Route::add('/item/([0-9]*)', function($id) {
+// get task by id
+Route::add('/task/([0-9]*)', function($id) {
 	include 'link.php';
 	header("Access-Control-Allow-Origin : *");
 	header("Access-Control-Allow-Credentials : true");
 	// also formats the status from an id to the status's label
-	// can also return an item's project if it's not the inbox
-	return get_item($link,$id);
+	// can also return an task's project if it's not the inbox
+	return get_task($link,$id);
 }, 'get');
 
 
-Route::add('/item/([0-9]*)', function($id) {
+Route::add('/task/([0-9]*)', function($id) {
 	if ($_SERVER['REQUEST_METHOD'] == 'PUT'){
 		$data = file_get_contents('php://input');
 		$data = json_decode($data, true);
-		if(isset($data["item"])) {
+		if(isset($data["task"])) {
 			include 'link.php';
-			$req_item = array(
-				"result" => update_item($link,$data),
+			$req_task = array(
+				"result" => update_task($link,$data),
 			);
-			return json_encode( $req_item );
+			return json_encode( $req_task );
 		}
 	}
 	if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
@@ -91,25 +91,25 @@ Route::add('/item/([0-9]*)', function($id) {
 	}
 }, ['PUT','OPTIONS']);
 
-Route::add('/item/([0-9]*)/update', function($id) {
+Route::add('/task/([0-9]*)/update', function($id) {
 	include 'link.php';
 	$_POST['id'] = $id;
-	$req_item = array(
-		"result" => update_item($link,$data),
+	$req_task = array(
+		"result" => update_task($link,$data),
 	);
-	return json_encode( $req_item );
+	return json_encode( $req_task );
 }, 'POST');
 
-Route::add('/item/([0-9]*)', function($id) {
+Route::add('/task/([0-9]*)', function($id) {
 	if ($_SERVER['REQUEST_METHOD'] == 'DELETE'){
 		header("Access-Control-Allow-Origin : *");
 		header("Access-Control-Allow-Credentials : true");
 		include 'link.php';
-		delete_item($link,$id);
-		$req_item = array(
+		delete_task($link,$id);
+		$req_task = array(
 			"id" => "sucess",
 		);
-		return json_encode( $req_item );
+		return json_encode( $req_task );
 	}
 	if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
 		header("Access-Control-Allow-Origin : http://build.hectordiaz.pro");
@@ -120,7 +120,7 @@ Route::add('/item/([0-9]*)', function($id) {
 	}
 }, ['DELETE','OPTIONS']);
 
-// end item routes
+// end task routes
 // project routes
 
 // create a project

@@ -1,23 +1,39 @@
 # Get S##t Done
 
+## To Do
 ----------------
+
+- [ ] Status read  endpoints
+- [ ] Refactor crud_lib repeat code into the query_lib as seprate functions 
+- [ ] User Authentication service
+- [ ] Review_item CRUD endpoints
+- [ ] Review CRUD endpoints
+- [ ] Goal_review CRUD endpoints
+- [ ] Frontend JS for fetching data from the API
+- [ ] Frontend sends one request to API and it updates all the task priorities accordingly
+	- Working task for this endpoint have a priority of N>0 and status != 'done'
+- [ ] Add UI for taks with prioreties of N>0
+- [ ] Refactor the task table to include a INT priority or rank field
+	- Each priority gets a default of '0' 
+- [ ] Refactor frontend JS to cascade instead of swap when moving tasks around
+
 
 ## Introduction
 
 My take on David Allen's Getting Things Done methodology. Sorry Mr. Allen. 
 
-heart of the workflow design is one list for everything. The almighty Backlog. To give some sense to the pile are tags. And the Backlog is halfed, inbox items being entries of unprocessed stuff. When stuff gets processed and earns its self a tag it graduates to main half of the Backlog, backlog. 
+heart of the workflow design is one list for everything. The almighty Backlog. To give some sense to the pile are projects. And the Backlog is halfed, inbox items being entries of unprocessed stuff. When stuff gets processed and earns its self a project it graduates to main half of the Backlog, backlog. 
 
 That's the heart of my current task management system. Under the recommendation of a one of the best human beings I have had the pleasure to work with, I ditched all the apps for a google doc and then a google sheet. I went form taking 2 hours to maintain 40+ local clients websites to 20 minutes. Despite complete a couple projects I found myself reaching for freatures and general feelings of, "this could be faster..." 
 
 --------------
 ## Methodology
 
-Think of the tags as a way to create new views or pages with in app. Tagging an item removes it from the Inbox and adds it to the tag's view. Adding multiple tags gives multiple views access to that same item. Now think of those views as workspaces. Eventaully each workspace will become a list of clearly defined individual task that help accomplish or maintain the object, as defined by the tag's label, of that workspace. 
+The most important workspace in the application is the **Inbox**. The genisis of this project came from how difficult a spread sheet makes it to enter data in the way I needed. GSD's main goal is to become a catch for my stuff as descirbed in GTD methodology. I wanted a big easy pad to jot out a quick idea. 
 
-The most important workspace in the application is the ** Inbox **. The genisis of this project came from how difficult a spread sheet makes it to enter data in the way I needed. GSD's main goal is to become a catch for my stuff as descirbed in GTD methodology. I wanted a big easy pad to jot out a quick idea. 
+### Design
 
-Everytime you visit the app, it promotes you to add an item to the inbox. It also has a big "add item to inbox" button available in all views.Inbox items are items without a tag. There is no limit on how small or big, within reason, you can make an entry to the inbox. As in GTD, in order to add a tag to an inbox item, you have to review the inbox (detailed instructions here). The makes it easy in the inbox reveiw mode by supplying all of the active tags, allow you to create new tags, and make multiple new items with specified tags.Only in this view can you add tags to newly created items. This gives us a chance to breack each item down into specific tasks for each of our workspaces. 
+Everytime you visit the app, it promotes you to add an item to the inbox. It also has a big "add item to inbox" button available in all views.Inbox items are items without a project. There is no limit on how small or big, within reason, you can make an entry to the inbox. As in GTD, in order to add a project to an inbox item, you have to review the inbox (detailed instructions here). The makes it easy in the inbox reveiw mode by supplying all of the active projects, allow you to create new projects, and make multiple new items with specified projects.Only in this view can you add projects to newly created items. This gives us a chance to breack each item down into specific tasks for each of our workspaces. 
 
 
 
