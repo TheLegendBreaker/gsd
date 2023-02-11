@@ -236,10 +236,10 @@ mixin topBar()
 	header#main-nav.justify-center
 		.container.split-em.eight-two
 			+ label('WIP timelime').split-em.two-eight
-				.tl-options.pos-rel
-					+ btn('pause or continue timelimit').pos-abso.sr-label
+				.tl-options.pos-rel.wip-limit
+					+ btn('pause or continue timelimit').btn.btn--hidden.pos-abso.sr-label
 						.time 1:00:00
-					select.pos-abso
+					select.wip-limit__select
 						- var oName="1 hour"
 						+ optionPart(oName,oValue=oName)
 						- oName="2 hour"

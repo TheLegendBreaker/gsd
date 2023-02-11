@@ -4,12 +4,8 @@ server {
 
 
 	location /{
-		# point the dir on fpm container where scripts volumes lives
 		root /app;
-		# use this file at the root.
-		# since it is a php file, nginx will redirect the request to the next location rule.
 		index /routes.php;
-		# since there is no '/app' in the nginx container all uri trys will fail and therefore server routes.php which then nginx redirects to the next location rule.
 		try_files ${DOLLAR}uri ${DOLLAR}uri/ /routes.php;
 		location ~ \.php${DOLLAR} {
 			fastcgi_pass gsd_app:9000;
@@ -17,5 +13,18 @@ server {
 			include fastcgi.conf;
 		}
 	}
+	
+	location /ui {
+		root /var/www/gsd/views;
+		index index.html;
+		try_files ${DOLLAR}uri /index.html =404;
+	}
 
+	location ~ \.(js) {
+		root /var/www/gsd/static/js;
+	}
+
+	location ~ \.(css) {
+		root /var/www/gsd/static/css;
+	}
 }

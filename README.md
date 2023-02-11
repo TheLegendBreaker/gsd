@@ -5,6 +5,8 @@
 
 - [ ] Status read  endpoints
 - [ ] Refactor crud_lib repeat code into the query_lib as seprate functions 
+- [ ] Refactor all repeat code into new functions in routes.php
+- [ ] Refactor route.php to router.php
 - [ ] User Authentication service
 - [ ] Review_item CRUD endpoints
 - [ ] Review CRUD endpoints

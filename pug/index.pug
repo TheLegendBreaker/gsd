@@ -3,6 +3,14 @@ include ./mixins.pug
 block inlineStyles
 	link(rel="stylesheet" href="/gsd_style.css")
 	style.
+		.filter-input button {
+			max-width: 20%;
+			width: 100%;
+		}
+		.filter-input input {
+			max-width: 80%;
+			width: 100%;
+		}
 		.actions-container.split-em > :nth-child(1),
 		.actions-container.split-em > :nth-child(4)
 			{
@@ -18,6 +26,31 @@ block inlineStyles
 			transform: rotate(90deg);
 			display: inline-block;
 		}
+		.btn--hidden {
+			z-index: -5;
+		}
+		.wip-limit__select {
+			padding: 10px;
+		}
+		.wip-limit {
+			padding: 0 5px;
+		}
+		.container {
+			margin: 0 auto;
+		}
+		.define-done {
+			max-width: none;
+			width: 100%;
+		}
+		.define-done > * {
+			vertical-align: middle;
+		}
+		footer {
+			top: 97vh;
+		}
+		footer button {
+			font-size: 1.5rem;
+		}
 block title
 	title GSD
 block topbar
@@ -25,32 +58,34 @@ block topbar
 
 block body
 	main#gsd.justify-center.pos-rel
-		.title.container
-			h1.recall-title.split-em-end.eight-two
-				+ xyLabelSelect("recall-view").sr-label
-					- oName="goal 1"
-					+ optionPart(oName,oValue=oName)
-					- oName="goal 2"
-					+ optionPart(oName,oValue=oName)
-					- oName="goal 3"
-					+ optionPart(oName,oValue=oName)
-					- oName="backlog"
-					+ optionPart(oName,oValue=oName)
-					- oName="inbox"
-					+ optionPart(oName,oValue=oName)
+		section
+			.title.container
+				h1.recall-title.split-em-end.eight-two
+					+ labelSelect("recall-view").sr-label
+						- oName="goal 1"
+						+ optionPart(oName,oValue=oName)
+						- oName="goal 2"
+						+ optionPart(oName,oValue=oName)
+						- oName="goal 3"
+						+ optionPart(oName,oValue=oName)
+						- oName="backlog"
+						+ optionPart(oName,oValue=oName)
+						- oName="inbox"
+						+ optionPart(oName,oValue=oName)
 
-				+ btn('done?')
+					+ btn('done?')
 
 			- var iValue = "when timestamps, labels, filters, and weekly reviews are automated."
 			- var iLabel = "done ="
 			- var iName = "defineDone"
-			+ textArea(iLabel,iName,iValue).define-done.split-em.two-six-two
-				button
-					span done?
+			.container
+				+ textArea(iLabel,iName,iValue).define-done.split-em.two-six-two
+					button
+						span done?
 
 		section.recall-workspace
 			+secondTitleLabel('workspace')
-			+txtInput('filter items in this workspace.','filter','').sr-label.search.justify-center.split-em-end.eight-two
+			+txtInput('filter items in this workspace.','filter','').sr-label.search.justify-center.filter-input
 				button 
 					span filter
 
